@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repo.conexaotv" name="[B][COLOR white]Repositorio Conexao  [COLOR purple]TV[/B][/COLOR]" version="1.00" provider-name="Marciocn">">
+<addon id="repo.conexaoTV" name="[B][COLOR white]Repositorio Conexao[COLOR purple]TV[/B][/COLOR]" version="1.00" provider-name="Marciocn">">
 	<requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.simple.downloader" version="0.9.4"/>
@@ -21,9 +21,9 @@
 	
   </requires>
   <extension point="xbmc.addon.repository" name="Vikings Repository">
-		<info compressed="false">http://raw.github.com/Conexaotv/repo.vikings/master/addons.xml</info>
-		<checksum>http://raw.github.com/Conexaotv/repo.vikings/master/addons.xml.md5</checksum>
-		<datadir zip="true">http://raw.github.com/Conexaotv/repo.vikings/master/addons/</datadir>
+		<info compressed="false">http://raw.github.com/Conexaotv/repo.conexaoTV/master/addons.xml</info>
+		<checksum>http://raw.github.com/Conexaotv/repo.conexaoTV/master/addons.xml.md5</checksum>
+		<datadir zip="true">http://raw.github.com/Conexaotv/repo.conexaoTV/master/ZipFiles/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Repositorio Conexao TV</summary>
