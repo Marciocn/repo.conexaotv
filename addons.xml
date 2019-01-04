@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <addon id="plugin.video.conexao"
-       name="[B][COLOR white]Cone[B][COLOR yellow]x[B][COLOR  white]Ã£o[/COLOR][/B] [B][COLOR yellow]Tv[/COLOR][/B]"
-       version="1.0.0"
-       provider-name="ConexÃ£o tv">
+       name="[B][COLOR white]Cone[B][COLOR violet]x[B][COLOR  white]Ã£o[/COLOR][/B] [B][COLOR violet]Tv[/COLOR][/B]"
+       version="2.0.0"
+       provider-name="TEAM:[COLOR white][B]Cone[B][COLOR violet]x[B][COLOR  white]Ã£o[/COLOR][/B] [B][COLOR violet]Tv[/COLOR][/B][COLOR red]>>>>>[/COLOR][COLOR firebrick]Marcio Candido[/COLOR][COLOR  blue]Welton Tavares[/COLOR][COLOR cyan]Valdecir BIGV[/COLOR][COLOR firebrick]Geraldo Batista[/COLOR]">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.t0mm0.common" version="2.0.0"/>
@@ -25,8 +25,8 @@
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary>Add-on ConexÃ£o tv</summary>
-    <description lang="pt">ADD-ON ,com varios canais de TV sempre atualizados. varios tipos de videos,Filmes Dublados e Legendados</description>
+    <summary>[COLOR lime]TV [COLOR red][/COLOR] FILMES [COLOR firebrick]SERIES [COLOR blue]DESENHOS [COLOR orange]ANIMES [COLOR cyan]LANCAMENTOS [COLOR lime]HD [COLOR yellow]FHD[/COLOR]</summary>
+    <description lang="pt">[COLORO violet] [/B]O autor nÃ£o Ã© responsÃ¡vel pelo uso deste addon. O autor nÃ£o Ã© responsÃ¡vel pelo conteÃºdo encontrado usando este addon. O autor nÃ£o hospeda nem possui nenhum conteÃºdo encontrado neste addon.[/B][/COLOR]</description>
     <platform>all</platform>
   </extension>
 </addon>
@@ -60,7 +60,9 @@
     </extension>
 </addon>
 
-<addon id="repo.conexaoTV" name="[B][COLOR white]Repositorio Conexao[COLOR purple]TV[/B][/COLOR]" version="1.00" provider-name="Marciocn">">
+<addon id="repo.conexaoTV"
+ name="[B][COLOR white]Repositorio Cone[B][COLOR violet]x[B][COLOR  white]Ã£o[/COLOR][/B] [B][COLOR violet]Tv[/COLOR][/B]"
+version="1.00" provider-name="Marciocn">">
 	<requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.simple.downloader" version="0.9.4"/>

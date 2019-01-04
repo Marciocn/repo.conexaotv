@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repo.conexaoTV" name="[B][COLOR white]Repositorio Conexao[COLOR purple]TV[/B][/COLOR]" version="1.00" provider-name="Marciocn">">
+<addon id="repo.conexaoTV" 
+ name="[B][COLOR white]Repositorio Cone[B][COLOR violet]x[B][COLOR  white]ão[/COLOR][/B] [B][COLOR violet]Tv[/COLOR][/B]"
+version="1.00" provider-name="Marciocn">">
 	<requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.simple.downloader" version="0.9.4"/>
