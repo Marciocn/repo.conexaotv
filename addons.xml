@@ -3,7 +3,7 @@
 <addon id="plugin.video.conexao"
        name="[B][COLOR white]Cone[B][COLOR violet]x[B][COLOR  white]Ã£o[/COLOR][/B] [B][COLOR violet]Tv[/COLOR][/B]"
        version="2.0.0"
-       provider-name="TEAM:[COLOR white][B]Cone[B][COLOR violet]x[B][COLOR  white]Ã£o[/COLOR][/B] [B][COLOR violet]Tv[/COLOR][/B][COLOR red]>>>>>[/COLOR][COLOR firebrick]Marcio Candido[/COLOR][COLOR  blue]Welton Tavares[/COLOR][COLOR cyan]Valdecir BIGV[/COLOR][COLOR firebrick]Geraldo Batista[/COLOR]">
+       provider-name="TEAM:[COLOR white][B]Cone[B][COLOR violet]x[B][COLOR  white]Ã£o[/COLOR][/B] [B][COLOR violet]Tv[/COLOR][/B]">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.t0mm0.common" version="2.0.0"/>
@@ -27,7 +27,11 @@
   <extension point="xbmc.addon.metadata">
     <summary>[COLOR lime]TV [COLOR red][/COLOR] FILMES [COLOR firebrick]SERIES [COLOR blue]DESENHOS [COLOR orange]ANIMES [COLOR cyan]LANCAMENTOS [COLOR lime]HD [COLOR yellow]FHD[/COLOR]</summary>
     <description lang="pt">[COLORO violet] [/B]O autor nÃ£o Ã© responsÃ¡vel pelo uso deste addon. O autor nÃ£o Ã© responsÃ¡vel pelo conteÃºdo encontrado usando este addon. O autor nÃ£o hospeda nem possui nenhum conteÃºdo encontrado neste addon.[/B][/COLOR]</description>
-    <platform>all</platform>
+    <news>
+	Addon criado e mantido por:
+	[COLOR red]>>>>>[/COLOR][COLOR firebrick]Marcio Candido[/COLOR][COLOR  blue]Welton Tavares[/COLOR][COLOR cyan]Valdecir BIGV[/COLOR][COLOR firebrick]Geraldo Batista[/COLOR]
+</news>
+	<platform>all</platform>
   </extension>
 </addon>
 
