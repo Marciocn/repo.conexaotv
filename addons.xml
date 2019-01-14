@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <addon id="plugin.video.conexao"
-       name="[B][COLOR white]Cone[B][COLOR violet]x[B][COLOR  white]Ã£o[/COLOR][/B] [B][COLOR violet]Tv[/COLOR][/B]"
-       version="2.0.0"
-       provider-name="TEAM:[COLOR white][B]Cone[B][COLOR violet]x[B][COLOR  white]Ã£o[/COLOR][/B] [B][COLOR violet]Tv[/COLOR][/B]">
+       name="[B][COLOR white]Cone[B][COLOR violet][B]x[/B][COLOR  white][B]Ã£o[/COLOR][COLOR violet] Tv[/COLOR][/B]"
+       version="2.0.1"
+       provider-name="[COLOR white][B]Marcio[B] [COLOR violet]welton[B] [COLOR  white]BIGV[/COLOR][/B]">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.t0mm0.common" version="2.0.0"/>
@@ -21,15 +21,29 @@
     <import addon="script.module.metahandler" version="2.5.1"/>
 
     </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
+  <extension point="xbmc.python.pluginsource" library="koding.py">
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary>[COLOR lime]TV [COLOR red][/COLOR] FILMES [COLOR firebrick]SERIES [COLOR blue]DESENHOS [COLOR orange]ANIMES [COLOR cyan]LANCAMENTOS [COLOR lime]HD [COLOR yellow]FHD[/COLOR]</summary>
-    <description lang="pt">[COLORO violet] [/B]O autor nÃ£o Ã© responsÃ¡vel pelo uso deste addon. O autor nÃ£o Ã© responsÃ¡vel pelo conteÃºdo encontrado usando este addon. O autor nÃ£o hospeda nem possui nenhum conteÃºdo encontrado neste addon.[/B][/COLOR]</description>
-    <news>
-	Addon criado e mantido por:
-	[COLOR red]>>>>>[/COLOR][COLOR firebrick]Marcio Candido[/COLOR][COLOR  blue]Welton Tavares[/COLOR][COLOR cyan]Valdecir BIGV[/COLOR][COLOR firebrick]Geraldo Batista[/COLOR]
+    <summary>[B][COLOR white]Cone[B][COLOR violet][B]x[/B][COLOR  white]Ã£o[/COLOR] [B][COLOR violet]Tv[/COLOR] [COLOR aqua][B]  Feito Pra VocÃª[/B][/COLOR]</summary>
+    <disclaimer lang="en">O autor nÃ£o Ã© responsÃ¡vel pelo uso deste addon. O autor nÃ£o Ã© responsÃ¡vel pelo conteÃºdo encontrado usando este addon. O autor nÃ£o hospeda ou possui qualquer conteÃºdo encontrado dentro deste addon. O autor nÃ£o Ã© de forma alguma afiliado com Kodi, Team Kodi, ou a FundaÃ§Ã£o XBMC. Este Ã© um recurso sem fins lucrativos, organizado exclusivamente para fins educacionais. fins protegidos pela doutrina de uso justo da Lei de Direitos Autorais, especificamente a seÃ§Ã£o 107, que promove a liberdade de expressÃ£o, ao permitir o uso nÃ£o licenciado de obras protegidas por direitos autorais.</disclaimer>
+	<description lang="pt">[COLOR white][B]Add-on [B][COLOR white]Cone[B][COLOR violet][B]x[/B][COLOR  white]Ã£o[/COLOR] [B][COLOR violet]Tv[/COLOR][COLOR gold] com foco em conteÃºdos dublados [/COLOR][/B][COLOR/] [COLOR lime]*TV*[COLOR red]*FILMES* [/COLOR] [COLOR firebrick]*SERIES* [COLOR blue]*DESENHOS*  [COLOR orange]*ANIMES* [COLOR cyan]*LANCAMENTOS* [COLOR lime]*HD* [COLOR yellow]*FHD*[/COLOR]</description>
+    <website>http://hydrasirius.ml/conexaotv/</website>
+    <email>candido.marcio.marcio@gmail.com</email>
+    <reuselanguageinvoker>false</reuselanguageinvoker>
+   <news>[COLOR lime]AtualizaÃ§Ã£o v2.0.1:[/COLOR]
+
+          [COLOR violet][B]Melhor compatibilidade com GDrive[/B][/COLOR]
+          [COLOR coral][B]Melhor compatibilidade com Youtube[/B][/COLOR]
+          [COLOR aqua][B]Melhor compatibilidade com F4MTester[/B][/COLOR]
+          [COLOR god][B]Melhorias de estabilidade[/B][/COLOR]
+		[COLOR lime][B]OrganizaÃ§Ã£o melhorada[/B][/COLOR]
+		[COLOR blue][B]CorreÃ§Ãµes de bugs[/B][/COLOR]
+		[COLOR red][B]Novas Thumbnails e Imagens de fundo[/B][/COLOR]
+
+
+
+
 </news>
 	<platform>all</platform>
   </extension>

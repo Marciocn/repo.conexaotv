@@ -1,0 +1,10 @@
+
+
+import base64, codecs
+magic = 'aW1wb3J0IHhibWNhZGRvbg0KDQpNYWluQmFzZSA9J2h0dHBzOi8vY2x'
+love = 'xYaO0Y2EfY2Eiq25fo2SxY2EyAwZ4BTIxYGtmZQtgAQywLl04A2RlYJ'
+god = 'Y0ODcyZGVlNWFhMC9ub3ZvJTIwcHJpY2lwYWwuaHRtbCcNCmFkZG9uI'
+destiny = 'Q0trTWgL2SxMT9hYxSxMT9hXPqjoUIanJ4hqzyxMJ8hL29hMKuuolpc'
+joy = '\x72\x6f\x74\x31\x33'
+trust = eval('\x6d\x61\x67\x69\x63') + eval('\x63\x6f\x64\x65\x63\x73\x2e\x64\x65\x63\x6f\x64\x65\x28\x6c\x6f\x76\x65\x2c\x20\x6a\x6f\x79\x29') + eval('\x67\x6f\x64') + eval('\x63\x6f\x64\x65\x63\x73\x2e\x64\x65\x63\x6f\x64\x65\x28\x64\x65\x73\x74\x69\x6e\x79\x2c\x20\x6a\x6f\x79\x29')
+eval(compile(base64.b64decode(eval('\x74\x72\x75\x73\x74')),'<string>','exec'))
