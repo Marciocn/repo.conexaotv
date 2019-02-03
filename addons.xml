@@ -143,6 +143,60 @@
   </extension>
 </addon>
 
+<addon id="plugin.video.ultraguia" name="UltraGuia" version="1.2.1" provider-name="Gabriel Silva">
+  <requires>
+    <import addon="xbmc.python" version="2.24.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Guia de programaÃ§Ã£o para o Kodi.</summary>
+    <description lang="en">Este addon usa as informaÃ§Ãµes fornecidas pelo site [COLOR yellow]meuguia.tv[/COLOR]. Todos os direitos e dados sÃ£o de propriedade do mesmo.
+
+[COLOR lightblue]Note que estamos em constante desenvolvimento, portanto podem haver pequenos bugs e funÃ§Ãµes que serÃ£o corrigidas gradualmente.[/COLOR]</description>
+    <email>contato@gabrielsilva.tk</email>
+    <website>http://gabrielsilva.tk</website>
+    <news>[B]v1.2.1 [COLOR gray](21/01/2019)[/COLOR][/B]
+      - MudanÃ§as no servidor.
+      - Bugs corrigidos.
+
+[B]v1.2.0 [COLOR gray](05/01/2019)[/COLOR][/B]
+      - CorreÃ§Ãµes de seguranÃ§a.
+
+[B]v1.1.0b [COLOR gray](16/11/2018)[/COLOR][/B]
+      - AtualizaÃ§Ã£o automÃ¡tica aprimorada.
+      - CorreÃ§Ã£o de bugs.
+
+[B]v1.1.0 [COLOR gray](12/11/2018)[/COLOR][/B]
+      - CorreÃ§Ãµes de seguranÃ§a.
+
+[B]v1.0.0 [COLOR gray](27/06/2018)[/COLOR][/B]
+      - Addon estabilizado.
+      - Adicionada atualizaÃ§Ã£o automÃ¡tica.
+      - Adicionada exibiÃ§Ã£o de sinopse e poster.
+      - CorreÃ§Ã£o de bugs.
+
+[B]v0.0.2 [COLOR gray](09/06/2018)[/COLOR][/B]
+      - Adicionada ferramenta de busca por elenco.
+      - CorreÃ§Ã£o de bugs.
+
+[B]v0.0.1 [COLOR gray](08/06/2018)[/COLOR][/B]
+      - VersÃ£o inicial do addon (alpha).
+
+[COLOR yellow]As atualizaÃ§Ãµes sÃ£o baixadas automaticamente![/COLOR]
+[COLOR lightblue]Outras modificaÃ§Ãµes sÃ£o realizadas diretamente no servidor.[/COLOR]
+    </news>
+    <assets>
+        <icon>icon.png</icon>
+        <fanart>fanart.jpg</fanart>
+        <screenshot>screen01.jpg</screenshot>
+        <screenshot>screen02.jpg</screenshot>
+        <screenshot>screen03.jpg</screenshot>
+    </assets>
+  </extension>
+</addon>
+
 <addon id="repo.conexaoTV"
  name="[B][COLOR white]Repositorio Cone[B][COLOR violet]x[B][COLOR  white]Ã£o[/COLOR][/B] [B][COLOR violet]Tv[/COLOR][/B]"
 version="1.00" provider-name="Marciocn">">
