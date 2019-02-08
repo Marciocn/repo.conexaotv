@@ -52,7 +52,7 @@
 
 <addon id="plugin.video.ConexaoTube"
        name="[B][COLOR beige]Cone[B][COLOR aqua][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR red] Tube[/COLOR][/B]"
-       version="1.0.1"
+       version="1.0.2"
        provider-name="[B][COLOR beige]Cone[B][COLOR aqua][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR red] Tv[/COLOR][/B]">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
