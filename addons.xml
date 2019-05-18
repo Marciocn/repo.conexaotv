@@ -2,7 +2,7 @@
 <addons>
 <addon id="plugin.video.conexao"
        name="[B][COLOR beige]Cone[B][COLOR violet][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR magenta] Play[/COLOR][/B]"
-       version="3.0.0"
+       version="2.0.3"
        provider-name="[B][COLOR beige]Cone[B][COLOR violet][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR magenta] Play[/COLOR][/B]">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
