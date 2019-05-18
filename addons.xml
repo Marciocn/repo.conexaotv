@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
+<addon id="plugin.video.conexao"
+       name="[B][COLOR beige]Cone[B][COLOR violet][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR magenta] Play[/COLOR][/B]"
+       version="2.0.3"
+       provider-name="[B][COLOR beige]Cone[B][COLOR violet][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR magenta] Play[/COLOR][/B]">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.t0mm0.common" version="2.0.0"/>
+    <import addon="script.module.beautifulsoup" version="3.2.1"/>
+    <import addon="script.module.simple.downloader" version="0.9.4"/>
+    <import addon="script.module.beautifulsoup4" />
+    <import addon="script.module.simple.downloader" version="0.9.4"/>
+    <import addon="script.module.requests" />
+    <import addon="script.module.httplib2" />
+    <import addon="script.module.youtube.dl" optional="true"/>
+    <import addon="plugin.video.youtube" version="3.0.0"/>
+    <import addon="script.module.urlresolver" optional="true"/>
+    <import addon="script.module.simplejson" />
+    <import addon="script.common.plugin.cache" version="2.5.2"/>
+    <import addon="script.module.metahandler" version="2.5.1"/>
+
+    </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>[B][COLOR beige]Cone[B][COLOR violet][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR magenta] Play[/COLOR][/B][COLOR aqua][B]  Feito Pra VocÃª[/B][/COLOR]</summary>
+    <disclaimer lang="en">O autor nÃ£o Ã© responsÃ¡vel pelo uso deste addon. O autor nÃ£o Ã© responsÃ¡vel pelo conteÃºdo encontrado usando este addon. O autor nÃ£o hospeda ou possui qualquer conteÃºdo encontrado dentro deste addon. O autor nÃ£o Ã© de forma alguma afiliado com Kodi, Team Kodi, ou a FundaÃ§Ã£o XBMC. Este Ã© um recurso sem fins lucrativos, organizado exclusivamente para fins educacionais. fins protegidos pela doutrina de uso justo da Lei de Direitos Autorais, especificamente a seÃ§Ã£o 107, que promove a liberdade de expressÃ£o, ao permitir o uso nÃ£o licenciado de obras protegidas por direitos autorais.</disclaimer>
+	<description lang="pt">[COLOR white][B]Add-on [B][COLOR beige]Cone[B][COLOR violet][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR magenta] Play[/COLOR][/B][COLOR gold] com foco em conteÃºdos dublados [/COLOR][/B][COLOR/] [COLOR lime]*TV*[COLOR red]*FILMES* [/COLOR] [COLOR firebrick]*SERIES* [COLOR blue]*DESENHOS*  [COLOR orange]*ANIMES* [COLOR cyan]*LANCAMENTOS* [COLOR lime]*HD* [COLOR yellow]*FHD*[/COLOR]</description>
+    <website>http://hydrasirius.ml/conexaotv/</website>
+    <email>candido.marcio.marcio@gmail.com</email>
+    <reuselanguageinvoker>false</reuselanguageinvoker>
+   <news>[COLOR lime]AtualizaÃ§Ã£o v2.0.3:[/COLOR]
+
+
+   [COLOR violet][B]Novas Thumbnails e Imagens de fundo[/B][/COLOR]
+   [COLOR aqua][B]CorreÃ§Ãµes de bugs[/B][/COLOR]
+   [COLOR god][B]Melhorias de estabilidade[/B][/COLOR]
+
+
+
+
+
+</news>
+	<platform>all</platform>
+  </extension>
+</addon>
+
 <addon id="plugin.video.ConexaoTube"
        name="[B][COLOR beige]Cone[B][COLOR aqua][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR red] Tube[/COLOR][/B]"
        version="2.0.1"
