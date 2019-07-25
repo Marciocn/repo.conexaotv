@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <addon id="plugin.video.conexao"
-	   name="[B][COLOR beige]Cone[COLOR red][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR blue]-[COLOR aquamarine]Multi[COLOR blue]-[COLOR aqua]Addons[/COLOR][/B]"
+       name="[B][COLOR beige]Cone[COLOR red][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR blue]-[COLOR aquamarine]Multi[COLOR blue]-[COLOR aqua]Addons[/COLOR][/B]"
        version="2.0.4"
-       provider-name="Equipe:[B][COLOR beige]Cone[B][COLOR violet][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR magenta] Play[/COLOR][/B]">
+       provider-name="Equipe[B][COLOR beige]Cone[B][COLOR violet][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR magenta] Play[/COLOR][/B]">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.t0mm0.common" version="2.0.0"/>
@@ -25,24 +25,17 @@
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary>[B][COLOR beige]Cone[COLOR red][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR blue]-[COLOR aquamarine]Multi[COLOR blue]-[COLOR aqua]Addons[/COLOR][/B]Ã© apenas um AGREGADOR de links, Apenas agrega e organiza os links externos.</summary>
+    <summary>[B][COLOR beige]Cone[COLOR red][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR blue]-[COLOR aquamarine]Multi[COLOR blue]-[COLOR aqua]Addons[/COLOR][/B][COLOR aqua][B]  Feito Pra VocÃª[/B][/COLOR]</summary>
     <disclaimer lang="en">O autor nÃ£o Ã© responsÃ¡vel pelo uso deste addon. O autor nÃ£o Ã© responsÃ¡vel pelo conteÃºdo encontrado usando este addon. O autor nÃ£o hospeda ou possui qualquer conteÃºdo encontrado dentro deste addon. O autor nÃ£o Ã© de forma alguma afiliado com Kodi, Team Kodi, ou a FundaÃ§Ã£o XBMC. Este Ã© um recurso sem fins lucrativos, organizado exclusivamente para fins educacionais. fins protegidos pela doutrina de uso justo da Lei de Direitos Autorais, especificamente a seÃ§Ã£o 107, que promove a liberdade de expressÃ£o, ao permitir o uso nÃ£o licenciado de obras protegidas por direitos autorais.</disclaimer>
-	<description lang="pt">[COLOR white][B]Add-on  Com foco em conteÃºdos dublados[/COLOR] [COLOR lime]*TV*[COLOR red]*FILMES* [/COLOR] [COLOR firebrick]*SERIES* [COLOR blue]*DESENHOS*  [COLOR orange]*ANIMES* [COLOR cyan]*LANCAMENTOS* [COLOR lime]*HD* [COLOR yellow]*FHD*[/COLOR]</description>
-    <website>http://abre.ai/conexaotvn</website>
+	<description lang="pt">[COLOR lime]*TV*[COLOR red]*FILMES*[/COLOR][COLOR firebrick]*SERIES*[COLOR blue]*DESENHOS*[COLOR orange]*ANIMES*[COLOR cyan]*LANCAMENTOS*[COLOR lime]*HD*[COLOR yellow]*FHD*[/COLOR]</description>
+    <website>https://conexaoplay.github.io/conexaoplay</website>
     <email>candido.marcio.marcio@gmail.com</email>
     <reuselanguageinvoker>false</reuselanguageinvoker>
-   <news>[COLOR lime]AtualizaÃ§Ã£o v2.0.3:[/COLOR]<news>
- <news>[COLOR lime]AtualizaÃ§Ã£o v2.0.4:[/COLOR]: ATUALIZAÃ‡ÃƒO DE SERVIDOR MAIS SEGURANÃ‡A.</news>
+   <news>[COLOR lime] AtualizaÃ§Ã£o[COLOR red] v2.0.4:[/COLOR] [COLOR violet][B]Novas Thumbnails e Imagens de fundo[/B][/COLOR]
+       [COLOR aqua][B]CorreÃ§Ãµes de bugs[/B][/COLOR][COLOR god][B]Melhorias de estabilidade[/B][/COLOR]
 
-
-    <platform>all</platform>
-	<assets>
-<icon>icon.png</icon>
-<fanart>fanart.jpg</fanart>
-<screenshot>resources/screenshots/1.jpeg</screenshot>
-<screenshot>resources/screenshots/2.jpeg</screenshot>
-<screenshot>resources/screenshots/3.jpeg</screenshot>
-</assets>
+</news>
+	<platform>all</platform>
   </extension>
 </addon>
 
