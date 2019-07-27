@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <addon id="plugin.video.conexao"
-       name="[B][COLOR beige]Cone[COLOR red][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR blue]-[COLOR aquamarine]Multi[COLOR blue]-[COLOR aqua]Addons[/COLOR][/B]"
-       version="2.0.5"
-       provider-name="Equipe[B][COLOR beige]Cone[B][COLOR violet][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR magenta] Play[/COLOR][/B]">
+       name="[B][COLOR beige]Cone[COLOR red][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR blue]-[COLOR lime]Multi[COLOR blue]-[COLOR green]Addons[/COLOR][/B]"
+       version="2.0.6"
+       provider-name="[B][COLOR lime]Equipe:[/B] [B][COLOR beige]Cone[COLOR red][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR blue]-[COLOR lime]Multi[COLOR blue]-[COLOR green]Addons[/COLOR][/B]
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.t0mm0.common" version="2.0.0"/>
@@ -37,7 +37,8 @@
     <email>candido.marcio.marcio@gmail.com</email>
     <reuselanguageinvoker>false</reuselanguageinvoker>
    <news>[COLOR lime] AtualizaÃ§Ã£o[COLOR red] v2.0.5:[/COLOR] [COLOR violet][B]Novas Thumbnails e Imagens de fundo[/B][/COLOR]
-       [COLOR aqua][B]CorreÃ§Ãµes de bugs[/B][/COLOR][COLOR god][B]Melhorias de estabilidade[/B][/COLOR]
+   [COLOR lime] AtualizaÃ§Ã£o[COLOR red] v2.0.6:[/COLOR] [COLOR violet][B]Novas Thumbnails e Imagens de fundo[/B][/COLOR]
+    [COLOR god][B]Melhorias de estabilidade[/B][/COLOR]
 
 </news>
 	<platform>all</platform>
