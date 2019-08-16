@@ -2,7 +2,7 @@
 <addons>
 <addon id="plugin.video.conexao"
        name="[B][COLOR beige]Cone[COLOR lime][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR blue]-[COLOR lime]Multi[COLOR blue]-[COLOR green]Addons[/COLOR][/B]"
-       version="2.0.6"
+       version="2.0.7"
        provider-name="[B][COLOR lime]Equipe:[/B] [B][COLOR beige]Cone[COLOR lime][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR blue]-[COLOR lime]Multi[COLOR blue]-[COLOR green]Addons[/COLOR][/B]">
  <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -14,14 +14,14 @@
     <import addon="script.module.requests" />
     <import addon="script.module.httplib2" />
     <import addon="script.module.youtube.dl" optional="true"/>
-    <import addon="plugin.video.youtube" version="5.0.0"/>
     <import addon="script.module.urlresolver"/>
     <import addon="script.module.simplejson" />
     <import addon="script.common.plugin.cache" version="2.5.2"/>
     <import addon="script.module.metahandler" version="2.5.1"/>
-	  <import addon="script.module.livestreamer" optional="true"/>
+	<import addon="script.module.livestreamer" optional="true"/>
+
  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
+  <extension point="xbmc.python.pluginsource" library="youtube.py">
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.repository" name="Vikings Repository">
@@ -33,10 +33,8 @@
     <summary lang="en">[B][COLOR beige]Cone[COLOR red][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR blue]-[COLOR aquamarine]Multi[COLOR blue]-[COLOR aqua]Addons[/COLOR][/B][COLOR aqua][B]  Feito Pra VocÃª[/B][/COLOR]</summary>
     <disclaimer lang="en">O autor nÃ£o Ã© responsÃ¡vel pelo uso deste addon. O autor nÃ£o Ã© responsÃ¡vel pelo conteÃºdo encontrado usando este addon. O autor nÃ£o hospeda ou possui qualquer conteÃºdo encontrado dentro deste addon. O autor nÃ£o Ã© de forma alguma afiliado com Kodi, Team Kodi, ou a FundaÃ§Ã£o XBMC. Este Ã© um recurso sem fins lucrativos, organizado exclusivamente para fins educacionais. fins protegidos pela doutrina de uso justo da Lei de Direitos Autorais, especificamente a seÃ§Ã£o 107, que promove a liberdade de expressÃ£o, ao permitir o uso nÃ£o licenciado de obras protegidas por direitos autorais.</disclaimer>
 	<description lang="en">[COLOR lime]*TV*[COLOR red]*FILMES*[/COLOR][COLOR firebrick]*SERIES*[COLOR blue]*DESENHOS*[COLOR orange]*ANIMES*[COLOR cyan]*LANCAMENTOS*[COLOR lime]*HD*[COLOR yellow]*FHD*[/COLOR]</description>
-	<news>[COLOR lime] AtualizaÃ§Ã£o[COLOR red] v2.0.5:[/COLOR]
-	      [COLOR violet][B]Novas Thumbnails e Imagens de fundo[/B][/COLOR]
-          [COLOR lime] AtualizaÃ§Ã£o[COLOR red] v2.0.6:[/COLOR]
-		  [COLOR violet][B]Novas Thumbnails e Imagens de fundo[/B][/COLOR]
+	<news>[COLOR lime] AtualizaÃ§Ã£o[COLOR red] v2.0.7:[/COLOR]
+		  [COLOR violet][B]Melhor Desempenho[/B][/COLOR]
           [COLOR god][B]Melhorias de estabilidade[/B][/COLOR]
 </news>
     <platform>all</platform>

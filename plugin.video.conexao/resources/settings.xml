@@ -1,4 +1,4 @@
-<settings>
+﻿<settings>
  <category label="Geral">
     <setting id="1080pquality" label="Abrir videos em 1080p" type="bool" default=""/>
     <setting id="genesisorpulsar" type="enum" values="Genesis|Pulsar" label="Play IMDBid com:" default="Genesis"/>
@@ -22,7 +22,7 @@
   </category>
   
   <category label="Players">
-    <setting label="[B][COLOR aquamarine]Selecione abaixo seu gerenciador de torrents[/B][/COLOR]" type="lsep" /> 
+    <setting label="[B][COLOR lime]Selecione abaixo seu gerenciador de torrents[/B][/COLOR]" type="lsep" /> 
 	<setting type="sep" />
     <setting label="32054" type="labelenum" id="plugin" default="Quasar" values="Pulsar|Quasar|YATP|KmediaTorrent|Torrenter|XBMCtorrent"/>
     <setting type="sep" />
@@ -32,7 +32,7 @@
   </category>
   
   <category label="Idioma">
-	    <setting label="[B][COLOR aquamarine]Selecione abaixo seu idioma[/B][/COLOR]" type="lsep" />	
+	    <setting label="[B][COLOR lime]Selecione abaixo seu idioma[/B][/COLOR]" type="lsep" />	
 		<setting id="infoLang" type="select" label="30803" values="bg|cs|da|de|el|en|es|fi|fr|he|hr|hu|it|ja|ko|nl|no|pl|pt|pt-BR|ru|sl|sv|tr|zh" default="pt-BR" />
   </category>
   
