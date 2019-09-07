@@ -12,7 +12,7 @@
   </category>
 
  <category label="Visualização">
-    <setting id="use_thumb" type="bool" label="Usar Thumbnails como Fanart" default="false" />
+    <setting id="use_thumb" type="bool" label="Usar Thumbnails como Fanart" default="true" />
     <setting id="add_playlist" type="bool" label="Mostrar Janela de seleção de Links" default="true"/>
     <setting id="ask_playlist_items" type="bool" label="Escolher items do Menu de Contexto" default="true" />
   </category>
