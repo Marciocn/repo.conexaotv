@@ -16,7 +16,6 @@
     <import addon="script.module.youtube.dl" optional="true"/>
 	<import addon="plugin.video.f4mTester"/>
 	<import addon="plugin.video.dailymotion_com"/>
-	<import addon="plugin.video.gdrive"/>
     <import addon="script.module.urlresolver"/>
     <import addon="script.module.simplejson" />
     <import addon="script.common.plugin.cache" version="2.5.2"/>
@@ -36,7 +35,7 @@
     <summary lang="en">[B][COLOR beige]Cone[COLOR red][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR blue]-[COLOR aquamarine]Multi[COLOR blue]-[COLOR aqua]Addons[/COLOR][/B][COLOR aqua][B]  Feito Pra VocÃª[/B][/COLOR]</summary>
     <disclaimer lang="en">O autor nÃ£o Ã© responsÃ¡vel pelo uso deste addon. O autor nÃ£o Ã© responsÃ¡vel pelo conteÃºdo encontrado usando este addon. O autor nÃ£o hospeda ou possui qualquer conteÃºdo encontrado dentro deste addon. O autor nÃ£o Ã© de forma alguma afiliado com Kodi, Team Kodi, ou a FundaÃ§Ã£o XBMC. Este Ã© um recurso sem fins lucrativos, organizado exclusivamente para fins educacionais. fins protegidos pela doutrina de uso justo da Lei de Direitos Autorais, especificamente a seÃ§Ã£o 107, que promove a liberdade de expressÃ£o, ao permitir o uso nÃ£o licenciado de obras protegidas por direitos autorais.</disclaimer>
 	<description lang="en">[COLOR lime]*TV*[COLOR red]*FILMES*[/COLOR][COLOR firebrick]*SERIES*[COLOR blue]*DESENHOS*[COLOR orange]*ANIMES*[COLOR cyan]*LANCAMENTOS*[COLOR lime]*HD*[COLOR yellow]*FHD*[/COLOR]</description>
-	<news>[COLOR lime] AtualizaÃ§Ã£o[COLOR red] v3.0.0:[/COLOR]
+	<news>[COLOR lime] AtualizaÃ§Ã£o[COLOR red] v3.0.1:[/COLOR]
           [COLOR god][B]Melhorias de estabilidade[/B][/COLOR]
 </news>
     <platform>all</platform>
