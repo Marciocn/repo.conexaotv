@@ -1,19 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-
-    Copyright (C) 2014-2016 bromix (plugin.video.youtube)
-    Copyright (C) 2016-2018 plugin.video.youtube
-
-    SPDX-License-Identifier: GPL-2.0-only
-    See LICENSES/GPL-2.0-only for more information.
-"""
-
-from six.moves import urllib
-
 import os
+import urllib
 
 from .. import constants
-from .. import logger
+from ..logging import *
 from ..utils import *
 
 
@@ -21,21 +10,17 @@ class AbstractContext(object):
     def __init__(self, path=u'/', params=None, plugin_name=u'', plugin_id=u''):
         if not params:
             params = {}
-
-        self._system_version = None
+            pass
 
         self._cache_path = None
-        self._debug_path = None
 
         self._function_cache = None
-        self._data_cache = None
         self._search_history = None
-        self._playback_history = None
         self._favorite_list = None
         self._watch_later_list = None
         self._access_manager = None
 
-        self._plugin_name = str(plugin_name)
+        self._plugin_name = unicode(plugin_name)
         self._version = 'UNKNOWN'
         self._plugin_id = plugin_id
         self._path = create_path(path)
@@ -45,6 +30,7 @@ class AbstractContext(object):
 
         # create valid uri
         self._uri = self.create_uri(self._path, self._params)
+        pass
 
     def format_date_short(self, date_obj):
         raise NotImplementedError()
@@ -54,64 +40,48 @@ class AbstractContext(object):
 
     def get_language(self):
         raise NotImplementedError()
-
+    
     def get_region(self):
         raise NotImplementedError()
 
-    def get_cache_path(self):
+    def _get_cache_path(self):
         if not self._cache_path:
             self._cache_path = os.path.join(self.get_data_path(), 'kodion')
+            pass
         return self._cache_path
-
-    def get_playback_history(self):
-        if not self._playback_history:
-            uuid = self.get_access_manager().get_current_user_id()
-            db_file = os.path.join(os.path.join(self.get_data_path(), 'playback'), str(uuid))
-            self._playback_history = PlaybackHistory(db_file)
-        return self._playback_history
-
-    def get_data_cache(self):
-        if not self._data_cache:
-            max_cache_size_mb = self.get_settings().get_int(constants.setting.CACHE_SIZE, -1)
-            if max_cache_size_mb <= 0:
-                max_cache_size_mb = 5
-            else:
-                max_cache_size_mb = max_cache_size_mb / 2.0
-            self._data_cache = DataCache(os.path.join(self.get_cache_path(), 'data_cache'),
-                                         max_file_size_mb=max_cache_size_mb)
-        return self._data_cache
 
     def get_function_cache(self):
         if not self._function_cache:
-            max_cache_size_mb = self.get_settings().get_int(constants.setting.CACHE_SIZE, -1)
-            if max_cache_size_mb <= 0:
-                max_cache_size_mb = 5
-            else:
-                max_cache_size_mb = max_cache_size_mb / 2.0
-            self._function_cache = FunctionCache(os.path.join(self.get_cache_path(), 'cache'),
-                                                 max_file_size_mb=max_cache_size_mb)
+            max_cache_size_mb = self.get_settings().get_int(constants.setting.CACHE_SIZE, 5)
+            self._function_cache = FunctionCache(os.path.join(self._get_cache_path(), 'cache'),
+                                                 max_file_size_kb=max_cache_size_mb * 1024)
+            pass
         return self._function_cache
 
     def get_search_history(self):
         if not self._search_history:
             max_search_history_items = self.get_settings().get_int(constants.setting.SEARCH_SIZE, 50)
-            self._search_history = SearchHistory(os.path.join(self.get_cache_path(), 'search'),
+            self._search_history = SearchHistory(os.path.join(self._get_cache_path(), 'search'),
                                                  max_search_history_items)
+            pass
         return self._search_history
 
     def get_favorite_list(self):
         if not self._favorite_list:
-            self._favorite_list = FavoriteList(os.path.join(self.get_cache_path(), 'favorites'))
+            self._favorite_list = FavoriteList(os.path.join(self._get_cache_path(), 'favorites'))
+            pass
         return self._favorite_list
 
     def get_watch_later_list(self):
         if not self._watch_later_list:
-            self._watch_later_list = WatchLaterList(os.path.join(self.get_cache_path(), 'watch_later'))
+            self._watch_later_list = WatchLaterList(os.path.join(self._get_cache_path(), 'watch_later'))
+            pass
         return self._watch_later_list
 
     def get_access_manager(self):
         if not self._access_manager:
-            self._access_manager = AccessManager(self)
+            self._access_manager = AccessManager(self.get_settings())
+            pass
         return self._access_manager
 
     def get_video_playlist(self):
@@ -130,20 +100,19 @@ class AbstractContext(object):
         raise NotImplementedError()
 
     def get_system_version(self):
-        if not self._system_version:
-            self._system_version = SystemVersion(version='', releasename='', appname='')
-
-        return self._system_version
+        raise NotImplementedError()
 
     def create_uri(self, path=u'/', params=None):
         if not params:
             params = {}
+            pass
 
         uri = create_uri_path(path)
         if uri:
-            uri = "%s://%s%s" % ('plugin', str(self._plugin_id), uri)
+            uri = "%s://%s%s" % ('plugin', self._plugin_id.encode('utf-8'), uri)
         else:
-            uri = "%s://%s/" % ('plugin', str(self._plugin_id))
+            uri = "%s://%s/" % ('plugin', self._plugin_id.encode('utf-8'))
+            pass
 
         if len(params) > 0:
             # make a copy of the map
@@ -154,26 +123,23 @@ class AbstractContext(object):
             for param in uri_params:
                 if isinstance(params[param], int):
                     params[param] = str(params[param])
+                    pass
 
                 uri_params[param] = to_utf8(params[param])
-            uri = '?'.join([uri, urllib.parse.urlencode(uri_params)])
+                pass
+            uri += '?' + urllib.urlencode(uri_params)
+            pass
 
         return uri
 
     def get_path(self):
         return self._path
 
-    def set_path(self, value):
-        self._path = value
-
     def get_params(self):
         return self._params
 
     def get_param(self, name, default=None):
         return self.get_params().get(name, default)
-
-    def set_param(self, name, value):
-        self._params[name] = value
 
     def get_data_path(self):
         """
@@ -195,6 +161,7 @@ class AbstractContext(object):
         path_comps = []
         for arg in args:
             path_comps.extend(arg.split('/'))
+            pass
         path = os.path.join(self.get_native_path(), 'resources', *path_comps)
         return path
 
@@ -225,23 +192,31 @@ class AbstractContext(object):
     def add_sort_method(self, *sort_methods):
         raise NotImplementedError()
 
-    def log(self, text, log_level=logger.NOTICE):
-        logger.log(text, log_level, self.get_id())
+    def log(self, text, log_level=constants.log.NOTICE):
+        log_line = '[%s] %s' % (self.get_id(), text)
+
+        log(log_line, log_level)
+        pass
 
     def log_warning(self, text):
-        self.log(text, logger.WARNING)
+        self.log(text, constants.log.WARNING)
+        pass
 
     def log_error(self, text):
-        self.log(text, logger.ERROR)
+        self.log(text, constants.log.ERROR)
+        pass
 
     def log_notice(self, text):
-        self.log(text, logger.NOTICE)
+        self.log(text, constants.log.NOTICE)
+        pass
 
     def log_debug(self, text):
-        self.log(text, logger.DEBUG)
+        self.log(text, constants.log.DEBUG)
+        pass
 
     def log_info(self, text):
-        self.log(text, logger.INFO)
+        self.log(text, constants.log.INFO)
+        pass
 
     def clone(self, new_path=None, new_params=None):
         raise NotImplementedError()

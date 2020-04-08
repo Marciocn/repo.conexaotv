@@ -1,12 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-
-    Copyright (C) 2014-2016 bromix (plugin.video.youtube)
-    Copyright (C) 2016-2018 plugin.video.youtube
-
-    SPDX-License-Identifier: GPL-2.0-only
-    See LICENSES/GPL-2.0-only for more information.
-"""
+__author__ = 'bromix'
 
 SELECT_VIDEO_QUALITY = 30010
 
@@ -42,5 +34,3 @@ CONFIRM_DELETE = 30114
 CONFIRM_REMOVE = 30115
 DELETE_CONTENT = 30116
 REMOVE_CONTENT = 30117
-
-WATCH_LATER_RETRIEVAL_PAGE = 30711

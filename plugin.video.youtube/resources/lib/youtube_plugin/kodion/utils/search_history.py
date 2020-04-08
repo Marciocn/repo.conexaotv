@@ -1,22 +1,13 @@
-# -*- coding: utf-8 -*-
-"""
-
-    Copyright (C) 2014-2016 bromix (plugin.video.youtube)
-    Copyright (C) 2016-2019 plugin.video.youtube
-
-    SPDX-License-Identifier: GPL-2.0-only
-    See LICENSES/GPL-2.0-only for more information.
-"""
-
 import hashlib
 
-from .storage import Storage
+from storage import Storage
 from .methods import to_utf8
 
 
 class SearchHistory(Storage):
     def __init__(self, filename, max_items=10):
         Storage.__init__(self, filename, max_item_count=max_items)
+        pass
 
     def is_empty(self):
         return self._is_empty()
@@ -25,21 +16,18 @@ class SearchHistory(Storage):
         result = []
 
         keys = self._get_ids(oldest_first=False)
-        for i, key in enumerate(keys):
-            if i >= self._max_item_count:
-                break
+        for key in keys:
             item = self._get(key)
-
-            if item:
-                result.append(item[0])
+            result.append(item[0])
+            pass
 
         return result
 
     def clear(self):
         self._clear()
+        pass
 
-    @staticmethod
-    def _make_id(search_text):
+    def _make_id(self, search_text):
         m = hashlib.md5()
         m.update(to_utf8(search_text))
         return m.hexdigest()
@@ -47,9 +35,14 @@ class SearchHistory(Storage):
     def rename(self, old_search_text, new_search_text):
         self.remove(old_search_text)
         self.update(new_search_text)
+        pass
 
     def remove(self, search_text):
         self._remove(self._make_id(search_text))
+        pass
 
     def update(self, search_text):
         self._set(self._make_id(search_text), search_text)
+        pass
+
+    pass

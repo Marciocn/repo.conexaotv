@@ -1,14 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-
-    Copyright (C) 2014-2016 bromix (plugin.video.youtube)
-    Copyright (C) 2016-2018 plugin.video.youtube
-
-    SPDX-License-Identifier: GPL-2.0-only
-    See LICENSES/GPL-2.0-only for more information.
-"""
-
-import json
+__author__ = 'bromix'
 
 import xbmc
 from ..abstract_playlist import AbstractPlaylist
@@ -23,50 +13,29 @@ class XbmcPlaylist(AbstractPlaylist):
         self._playlist = None
         if playlist_type == 'video':
             self._playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
+            pass
         elif playlist_type == 'audio':
             self._playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
+            pass
+        pass
 
     def clear(self):
         self._playlist.clear()
+        pass
 
     def add(self, base_item):
-        item = xbmc_items.to_video_item(self._context, base_item)
+        item = xbmc_items.to_item(self._context, base_item)
         if item:
             self._playlist.add(base_item.get_uri(), listitem=item)
+            pass
+        pass
 
     def shuffle(self):
         self._playlist.shuffle()
+        pass
 
     def unshuffle(self):
         self._playlist.unshuffle()
+        pass
 
-    def size(self):
-        return self._playlist.size()
-
-    def get_items(self):
-        rpc_request = json.dumps(
-            {
-                "jsonrpc": "2.0",
-                "method": "Playlist.GetItems",
-                "params": {
-                    "properties": ["title", "file"],
-                    "playlistid": self._playlist.getPlayListId()
-                },
-                "id": 1
-            })
-
-        response = json.loads(xbmc.executeJSONRPC(rpc_request))
-
-        if 'result' in response:
-            if 'items' in response['result']:
-                return response['result']['items']
-            return []
-        else:
-            if 'error' in response:
-                message = response['error']['message']
-                code = response['error']['code']
-                error = 'Requested |%s| received error |%s| and code: |%s|' % (rpc_request, message, code)
-            else:
-                error = 'Requested |%s| received error |%s|' % (rpc_request, str(response))
-            self._context.log_debug(error)
-            return []
+    pass

@@ -1,14 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
+__author__ = 'bromix'
 
-    Copyright (C) 2014-2016 bromix (plugin.video.youtube)
-    Copyright (C) 2016-2018 plugin.video.youtube
-
-    SPDX-License-Identifier: GPL-2.0-only
-    See LICENSES/GPL-2.0-only for more information.
-"""
-
-from ...kodion.utils import FunctionCache, DataCache, strip_html_from_text
+from ...kodion.utils import FunctionCache
 
 
 class ResourceManager(object):
@@ -19,10 +11,11 @@ class ResourceManager(object):
         self._video_data = {}
         self._playlist_data = {}
         self._enable_channel_fanart = context.get_settings().get_bool('youtube.channel.fanart.show', True)
+        pass
 
     def clear(self):
         self._context.get_function_cache().clear()
-        self._context.get_data_cache().clear()
+        pass
 
     def _get_channel_data(self, channel_id):
         return self._channel_data.get(channel_id, {})
@@ -34,142 +27,122 @@ class ResourceManager(object):
         return self._playlist_data.get(playlist_id, {})
 
     def _update_channels(self, channel_ids):
-        result = dict()
-        json_data = dict()
-        channel_ids_to_update = list()
-        channel_ids_cached = list()
-        updated_channel_ids = list()
+        result = {}
 
-        data_cache = self._context.get_data_cache()
+        channel_ids_to_update = []
         function_cache = self._context.get_function_cache()
-
         for channel_id in channel_ids:
-            if channel_id == 'mine':
-                json_data = function_cache.get(FunctionCache.ONE_DAY, self._youtube_client.get_channel_by_username, channel_id)
-                items = json_data.get('items', [{'id': 'mine'}])
-                channel_id = items[0]['id']
-                json_data = dict()
-            updated_channel_ids.append(channel_id)
-
-        channel_ids = updated_channel_ids
-
-        channel_data = data_cache.get_items(DataCache.ONE_MONTH, channel_ids)
-        for channel_id in channel_ids:
-            if not channel_data.get(channel_id):
+            channel_data = function_cache.get_cached_only(self._get_channel_data, unicode(channel_id))
+            if channel_data is None:
+                self._context.log_debug("No data for channel '%s' cached" % channel_id)
                 channel_ids_to_update.append(channel_id)
+                pass
             else:
-                channel_ids_cached.append(channel_id)
-        result.update(channel_data)
-        if len(channel_ids_cached) > 0:
-            self._context.log_debug('Found cached data for channels |%s|' % ', '.join(channel_ids_cached))
+                self._context.log_debug("Found cached data for channel '%s'" % channel_id)
+                result[channel_id] = channel_data
+                pass
+            pass
 
         if len(channel_ids_to_update) > 0:
-            self._context.log_debug('No data for channels |%s| cached' % ', '.join(channel_ids_to_update))
-            json_data = self._youtube_client.get_channels(channel_ids_to_update)
-            channel_data = dict()
+            json_data = self._context.get_function_cache().get(FunctionCache.ONE_WEEK, self._youtube_client.get_channels,
+                                                               channel_ids_to_update)
             yt_items = json_data.get('items', [])
             for yt_item in yt_items:
-                channel_id = str(yt_item['id'])
-                channel_data[channel_id] = yt_item
-                result[channel_id] = yt_item
-            data_cache.set_all(channel_data)
-            self._context.log_debug('Cached data for channels |%s|' % ', '.join(list(channel_data.keys())))
+                channel_id = unicode(yt_item['id'])
+                self._channel_data[channel_id] = yt_item
 
-        if self.handle_error(json_data):
-            return result
+                # this will cache the channel data
+                result[channel_id] = self._context.get_function_cache().get(FunctionCache.ONE_WEEK,
+                                                                            self._get_channel_data, channel_id)
+                pass
+            pass
 
         return result
 
-    def _update_videos(self, video_ids, live_details=False):
-        result = dict()
-        json_data = dict()
-        video_ids_to_update = list()
-        video_ids_cached = list()
+    def _update_videos(self, video_ids):
+        result = {}
 
-        data_cache = self._context.get_data_cache()
-
-        video_data = data_cache.get_items(DataCache.ONE_MONTH, video_ids)
+        video_ids_to_update = []
+        function_cache = self._context.get_function_cache()
         for video_id in video_ids:
-            if not video_data.get(video_id):
+            video_data = function_cache.get_cached_only(self._get_video_data, unicode(video_id))
+            if video_data is None:
+                self._context.log_debug("No data for video '%s' cached" % video_id)
                 video_ids_to_update.append(video_id)
+                pass
             else:
-                video_ids_cached.append(video_id)
-        result.update(video_data)
-        if len(video_ids_cached) > 0:
-            self._context.log_debug('Found cached data for videos |%s|' % ', '.join(video_ids_cached))
+                self._context.log_debug("Found cached data for video '%s'" % video_id)
+                result[video_id] = video_data
+                pass
+            pass
 
         if len(video_ids_to_update) > 0:
-            self._context.log_debug('No data for videos |%s| cached' % ', '.join(video_ids_to_update))
-            json_data = self._youtube_client.get_videos(video_ids_to_update, live_details)
-            video_data = dict()
+            json_data = self._context.get_function_cache().get(FunctionCache.ONE_MONTH, self._youtube_client.get_videos,
+                                                               video_ids_to_update)
             yt_items = json_data.get('items', [])
             for yt_item in yt_items:
-                video_id = str(yt_item['id'])
-                video_data[video_id] = yt_item
-                result[video_id] = yt_item
-            data_cache.set_all(video_data)
-            self._context.log_debug('Cached data for videos |%s|' % ', '.join(list(video_data.keys())))
+                video_id = unicode(yt_item['id'])
+                self._video_data[video_id] = yt_item
 
-        played_items = dict()
-        if self._context.get_settings().use_playback_history():
-            playback_history = self._context.get_playback_history()
-            played_items = playback_history.get_items(video_ids)
+                # this will cache the channel data
+                result[video_id] = self._context.get_function_cache().get(FunctionCache.ONE_MONTH,
+                                                                          self._get_video_data, video_id)
+                pass
+            pass
 
-        for k in list(result.keys()):
-            result[k]['play_data'] = played_items.get(k, dict())
+        return result
 
-        if self.handle_error(json_data):
-            return result
-
-    @staticmethod
-    def _make_list_of_50(list_of_ids):
+    def _make_list_of_50(self, list_of_ids):
         list_of_50 = []
         pos = 0
         while pos < len(list_of_ids):
-            list_of_50.append(list_of_ids[pos:pos + 50])
+            list_of_50.append(list_of_ids[pos:pos+50])
             pos += 50
+            pass
         return list_of_50
 
-    def get_videos(self, video_ids, live_details=False):
+    def get_videos(self, video_ids):
         list_of_50s = self._make_list_of_50(video_ids)
 
         result = {}
         for list_of_50 in list_of_50s:
-            result.update(self._update_videos(list_of_50, live_details))
+            result.update(self._update_videos(list_of_50))
+            pass
         return result
 
     def _update_playlists(self, playlists_ids):
-        result = dict()
-        json_data = dict()
-        playlist_ids_to_update = list()
-        playlists_ids_cached = list()
+        result = {}
 
-        data_cache = self._context.get_data_cache()
-
-        playlist_data = data_cache.get_items(DataCache.ONE_MONTH, playlists_ids)
+        playlist_ids_to_update = []
+        function_cache = self._context.get_function_cache()
         for playlist_id in playlists_ids:
-            if not playlist_data.get(playlist_id):
+            playlist_data = function_cache.get_cached_only(self._get_playlist_data, unicode(playlist_id))
+            if playlist_data is None:
+                self._context.log_debug("No data for playlist '%s' cached" % playlist_id)
                 playlist_ids_to_update.append(playlist_id)
+                pass
             else:
-                playlists_ids_cached.append(playlist_id)
-        result.update(playlist_data)
-        if len(playlists_ids_cached) > 0:
-            self._context.log_debug('Found cached data for playlists |%s|' % ', '.join(playlists_ids_cached))
+                self._context.log_debug("Found cached data for playlist '%s'" % playlist_id)
+                result[playlist_id] = playlist_data
+                pass
+            pass
 
         if len(playlist_ids_to_update) > 0:
-            self._context.log_debug('No data for playlists |%s| cached' % ', '.join(playlist_ids_to_update))
-            json_data = self._youtube_client.get_playlists(playlist_ids_to_update)
-            playlist_data = dict()
+            json_data = self._context.get_function_cache().get(FunctionCache.ONE_DAY,
+                                                               self._youtube_client.get_playlists,
+                                                               playlist_ids_to_update)
             yt_items = json_data.get('items', [])
             for yt_item in yt_items:
-                playlist_id = str(yt_item['id'])
-                playlist_data[playlist_id] = yt_item
-                result[playlist_id] = yt_item
-            data_cache.set_all(playlist_data)
-            self._context.log_debug('Cached data for playlists |%s|' % ', '.join(list(playlist_data.keys())))
+                playlist_id = unicode(yt_item['id'])
+                self._playlist_data[playlist_id] = yt_item
 
-        if self.handle_error(json_data):
-            return result
+                # this will cache the channel data
+                result[playlist_id] = self._context.get_function_cache().get(FunctionCache.ONE_DAY,
+                                                                             self._get_playlist_data, playlist_id)
+                pass
+            pass
+
+        return result
 
     def get_playlists(self, playlists_ids):
         list_of_50s = self._make_list_of_50(playlists_ids)
@@ -177,6 +150,7 @@ class ResourceManager(object):
         result = {}
         for list_of_50 in list_of_50s:
             result.update(self._update_playlists(list_of_50))
+            pass
         return result
 
     def get_related_playlists(self, channel_id):
@@ -186,9 +160,12 @@ class ResourceManager(object):
         item = None
         if channel_id != 'mine':
             item = result.get(channel_id, {})
+            pass
         else:
-            for key in list(result.keys()):
+            for key in result:
                 item = result[key]
+                break
+            pass
 
         if item is None:
             return {}
@@ -201,6 +178,7 @@ class ResourceManager(object):
         result = {}
         for list_of_50 in list_of_50s:
             result.update(self._update_channels(list_of_50))
+            pass
         return result
 
     def get_fanarts(self, channel_ids):
@@ -210,7 +188,7 @@ class ResourceManager(object):
         result = self._update_channels(channel_ids)
 
         # transform
-        for key in list(result.keys()):
+        for key in result.keys():
             item = result[key]
 
             # set an empty url
@@ -222,21 +200,9 @@ class ResourceManager(object):
                 if image:
                     result[key] = image
                     break
+                pass
+            pass
 
         return result
 
-    def handle_error(self, json_data):
-        context = self._context
-        if json_data and 'error' in json_data:
-            message = json_data['error'].get('message', '')
-            message = strip_html_from_text(message)
-            reason = json_data['error']['errors'][0].get('reason', '')
-            title = '%s: %s' % (context.get_name(), reason)
-            message_timeout = 5000
-            if reason == 'quotaExceeded' or reason == 'dailyLimitExceeded':
-                message_timeout = 7000
-            context.get_ui().show_notification(message, title, time_milliseconds=message_timeout)
-            error_message = 'Error reason: |%s| with message: |%s|' % (reason, message)
-            raise Exception(error_message)
-
-        return True
+    pass

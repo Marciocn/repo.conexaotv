@@ -1,17 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-
-    Copyright (C) 2014-2016 bromix (plugin.video.youtube)
-    Copyright (C) 2016-2019 plugin.video.youtube
-
-    SPDX-License-Identifier: GPL-2.0-only
-    See LICENSES/GPL-2.0-only for more information.
-"""
-
 from functools import partial
 import hashlib
+import datetime
 
-from .storage import Storage
+from storage import Storage
 
 
 class FunctionCache(Storage):
@@ -21,14 +12,15 @@ class FunctionCache(Storage):
     ONE_WEEK = 7 * ONE_DAY
     ONE_MONTH = 4 * ONE_WEEK
 
-    def __init__(self, filename, max_file_size_mb=5):
-        max_file_size_kb = max_file_size_mb * 1024
+    def __init__(self, filename, max_file_size_kb=-1):
         Storage.__init__(self, filename, max_file_size_kb=max_file_size_kb)
 
         self._enabled = True
+        pass
 
     def clear(self):
         self._clear()
+        pass
 
     def enabled(self):
         """
@@ -36,6 +28,7 @@ class FunctionCache(Storage):
         :return:
         """
         self._enabled = True
+        pass
 
     def disable(self):
         """
@@ -43,19 +36,19 @@ class FunctionCache(Storage):
         :return:
         """
         self._enabled = False
+        pass
 
-    @staticmethod
-    def _create_id_from_func(partial_func):
+    def _create_id_from_func(self, partial_func):
         """
         Creats an id from the given function
         :param partial_func:
         :return: id for the given function
         """
         m = hashlib.md5()
-        m.update(partial_func.func.__module__.encode('utf-8'))
-        m.update(partial_func.func.__name__.encode('utf-8'))
-        m.update(str(partial_func.args).encode('utf-8'))
-        m.update(str(partial_func.keywords).encode('utf-8'))
+        m.update(partial_func.func.__module__)
+        m.update(partial_func.func.__name__)
+        m.update(str(partial_func.args))
+        m.update(str(partial_func.keywords))
         return m.hexdigest()
 
     def _get_cached_data(self, partial_func):
@@ -77,6 +70,10 @@ class FunctionCache(Storage):
         return None
 
     def get(self, seconds, func, *args, **keywords):
+        def _seconds_difference(_first, _last):
+            _delta = _last - _first
+            return 24*60*60*_delta.days + _delta.seconds + _delta.microseconds/1000000.
+
         """
         Returns the cached data of the given function.
         :param partial_func: function to cache
@@ -97,20 +94,20 @@ class FunctionCache(Storage):
         if data is not None:
             cached_data = data[0]
             cached_time = data[1]
+            pass
 
         diff_seconds = 0
-
+        now = datetime.datetime.now()
         if cached_time is not None:
             # this is so stupid, but we have the function 'total_seconds' only starting with python 2.7
-            diff_seconds = self.get_seconds_diff(cached_time)
+            diff_seconds = _seconds_difference(cached_time, now)
+            pass
 
         if cached_data is None or diff_seconds > seconds:
             cached_data = partial_func()
             self._set(cache_id, cached_data)
+            pass
 
         return cached_data
 
-    def _optimize_item_count(self):
-        # override method from resources/lib/youtube_plugin/kodion/utils/storage.py
-        # for function cache do not optimize by item count, using database size.
-        pass
+    pass

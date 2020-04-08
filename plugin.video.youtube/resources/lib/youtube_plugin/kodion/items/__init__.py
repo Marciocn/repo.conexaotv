@@ -1,14 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
+__all__ = ['BaseItem', 'AudioItem', 'DirectoryItem', 'VideoItem', 'ImageItem', 'WatchLaterItem', 'FavoritesItem',
+           'SearchItem', 'NewSearchItem', 'SearchHistoryItem', 'NextPageItem', 'UriItem',
+           'from_json', 'to_json', 'to_jsons']
 
-    Copyright (C) 2014-2016 bromix (plugin.video.youtube)
-    Copyright (C) 2016-2018 plugin.video.youtube
-
-    SPDX-License-Identifier: GPL-2.0-only
-    See LICENSES/GPL-2.0-only for more information.
-"""
-
-from .utils import to_json, from_json, to_jsons
+from utils import to_json, from_json, to_jsons
 
 from .uri_item import UriItem
 from .base_item import BaseItem
@@ -22,8 +16,3 @@ from .search_history_item import SearchHistoryItem
 from .next_page_item import NextPageItem
 from .video_item import VideoItem
 from .image_item import ImageItem
-
-
-__all__ = ['BaseItem', 'AudioItem', 'DirectoryItem', 'VideoItem', 'ImageItem', 'WatchLaterItem', 'FavoritesItem',
-           'SearchItem', 'NewSearchItem', 'SearchHistoryItem', 'NextPageItem', 'UriItem',
-           'from_json', 'to_json', 'to_jsons']

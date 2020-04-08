@@ -1,16 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
-
-    Copyright (C) 2014-2016 bromix (plugin.video.youtube)
-    Copyright (C) 2016-2018 plugin.video.youtube
-
-    SPDX-License-Identifier: GPL-2.0-only
-    See LICENSES/GPL-2.0-only for more information.
-"""
-
-from six import string_types
-
 import json
+
+__author__ = 'bromix'
 
 from .video_item import VideoItem
 from .directory_item import DirectoryItem
@@ -37,6 +27,7 @@ def from_json(json_data):
             if item_type == key:
                 item = mapping[key]()
                 break
+            pass
 
         if item is None:
             return _json_data
@@ -45,10 +36,12 @@ def from_json(json_data):
         for key in data:
             if hasattr(item, key):
                 setattr(item, key, data[key])
+                pass
+            pass
 
         return item
 
-    if isinstance(json_data, string_types):
+    if isinstance(json_data, basestring):
         json_data = json.loads(json_data)
     return _from_json(json_data)
 
@@ -76,6 +69,7 @@ def to_json(base_item):
         for key in mapping:
             if isinstance(obj, key):
                 return {'type': mapping[key], 'data': obj.__dict__}
+            pass
 
         return obj.__dict__
 

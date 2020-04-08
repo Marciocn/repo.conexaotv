@@ -1,33 +1,22 @@
-# -*- coding: utf-8 -*-
-"""
-
-    Copyright (C) 2014-2016 bromix (plugin.video.youtube)
-    Copyright (C) 2016-2019 plugin.video.youtube
-
-    SPDX-License-Identifier: GPL-2.0-only
-    See LICENSES/GPL-2.0-only for more information.
-"""
-
-from six import PY2
-from six.moves import range
-# noinspection PyPep8Naming
-from six.moves import cPickle as pickle
+__author__ = 'bromix'
 
 import datetime
 import os
 import sqlite3
 import time
-import traceback
 
-from .. import logger
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
 
 
 class Storage(object):
-    def __init__(self, filename, max_item_count=0, max_file_size_kb=-1):
+    def __init__(self, filename, max_item_count=1000, max_file_size_kb=-1):
         self._table_name = 'storage'
         self._filename = filename
         if not self._filename.endswith('.sqlite'):
-            self._filename = ''.join([self._filename, '.sqlite'])
+            self._filename += '.sqlite'
         self._file = None
         self._cursor = None
         self._max_item_count = max_item_count
@@ -53,9 +42,8 @@ class Storage(object):
             if not os.path.exists(path):
                 os.makedirs(path)
 
-            self._file = sqlite3.connect(self._filename, check_same_thread=False,
-                                         detect_types=0, timeout=1)
-
+            self._file = sqlite3.connect(self._filename, check_same_thread=False, detect_types=sqlite3.PARSE_DECLTYPES,
+                                         timeout=1)
             self._file.isolation_level = None
             self._cursor = self._file.cursor()
             self._cursor.execute('PRAGMA journal_mode=MEMORY')
@@ -63,24 +51,22 @@ class Storage(object):
             # self._cursor.execute('PRAGMA synchronous=OFF')
             self._create_table()
 
-    def _execute(self, needs_commit, query, values=None):
-        if values is None:
-            values = []
+    def _execute(self, needs_commit, query, values=[]):
         if not self._needs_commit and needs_commit:
             self._needs_commit = True
             self._cursor.execute('BEGIN')
 
         """
         Tests revealed that sqlite has problems to release the database in time. This happens no so often, but just to
-        be sure, we try at least 3 times to execute out statement.
+        be sure, we try at least 5 times to execute out statement.
         """
-        for tries in range(3):
+        for tries in range(5):
             try:
                 return self._cursor.execute(query, values)
             except TypeError:
                 return None
             except:
-                time.sleep(0.1)
+                time.sleep(2)
         else:
             return None
 
@@ -106,12 +92,9 @@ class Storage(object):
         if not os.path.exists(self._filename):
             return
 
-        try:
-            file_size_kb = (os.path.getsize(self._filename) // 1024)
-            if file_size_kb >= self._max_file_size_kb:
-                os.remove(self._filename)
-        except OSError:
-            pass
+        file_size_kb = os.path.getsize(self._filename) / 1024
+        if file_size_kb >= self._max_file_size_kb:
+            os.remove(self._filename)
 
     def _create_table(self):
         self._open()
@@ -129,37 +112,29 @@ class Storage(object):
         def _encode(obj):
             return sqlite3.Binary(pickle.dumps(obj, protocol=pickle.HIGHEST_PROTOCOL))
 
-        if self._max_file_size_kb < 1 and self._max_item_count < 1:
-            self._optimize_item_count()
-        else:
-            self._open()
-            now = datetime.datetime.now() + datetime.timedelta(microseconds=1)  # add 1 microsecond, required for dbapi2
-            query = 'REPLACE INTO %s (key,time,value) VALUES(?,?,?)' % self._table_name
-            self._execute(True, query, values=[item_id, now, _encode(item)])
-            self._close()
-            self._optimize_item_count()
+        self._open()
+        now = datetime.datetime.now()
+        if not now.microsecond:  # now is to the second
+            now += datetime.timedelta(microseconds=1)  # add 1 microsecond, required for dbapi2
+        query = 'REPLACE INTO %s (key,time,value) VALUES(?,?,?)' % self._table_name
+        self._execute(True, query, values=[item_id, now, _encode(item)])
+        self._optimize_item_count()
+        self._close()
 
     def _optimize_item_count(self):
-        if self._max_item_count < 1:
-            if not self._is_empty():
-                self._clear()
-        else:
-            self._open()
-            query = 'SELECT key FROM %s ORDER BY time DESC LIMIT -1 OFFSET %d' % (self._table_name, self._max_item_count)
-            result = self._execute(False, query)
-            if result is not None:
-                for item in result:
-                    self._remove(item[0])
-            self._close()
+        self._open()
+        query = 'SELECT key FROM %s ORDER BY time DESC LIMIT -1 OFFSET %d' % (self._table_name, self._max_item_count)
+        result = self._execute(False, query)
+        if result is not None:
+            for item in result:
+                self._remove(item[0])
+        self._close()
 
     def _clear(self):
         self._open()
         query = 'DELETE FROM %s' % self._table_name
         self._execute(True, query)
         self._create_table()
-        self._close()
-        self._open()
-        self._execute(False, 'VACUUM')
         self._close()
 
     def _is_empty(self):
@@ -195,9 +170,7 @@ class Storage(object):
 
     def _get(self, item_id):
         def _decode(obj):
-            if PY2:
-                obj = str(obj)
-            return pickle.loads(obj)
+            return pickle.loads(bytes(obj))
 
         self._open()
         query = 'SELECT time, value FROM %s WHERE key=?' % self._table_name
@@ -218,38 +191,3 @@ class Storage(object):
         self._open()
         query = 'DELETE FROM %s WHERE key = ?' % self._table_name
         self._execute(True, query, [item_id])
-
-    @staticmethod
-    def strptime(stamp, stamp_fmt):
-        # noinspection PyUnresolvedReferences
-        import _strptime
-        try:
-            time.strptime('01 01 2012', '%d %m %Y')  # dummy call
-        except:
-            pass
-        return time.strptime(stamp, stamp_fmt)
-
-    def get_seconds_diff(self, current_stamp):
-        stamp_format = '%Y-%m-%d %H:%M:%S.%f'
-        current_datetime = datetime.datetime.now()
-        if not current_stamp:
-            return 86400  # 24 hrs
-        try:
-            stamp_datetime = datetime.datetime(*(self.strptime(current_stamp, stamp_format)[0:6]))
-        except ValueError:  # current_stamp has no microseconds
-            stamp_format = '%Y-%m-%d %H:%M:%S'
-            stamp_datetime = datetime.datetime(*(self.strptime(current_stamp, stamp_format)[0:6]))
-        except TypeError:
-            logger.log_error('Exception while calculating timestamp difference: '
-                             'current_stamp |{cs}|{cst}| stamp_format |{sf}|{sft}| \n{tb}'
-                             .format(cs=current_stamp, cst=type(current_stamp),
-                                     sf=stamp_format, sft=type(stamp_format),
-                                     tb=traceback.print_exc())
-                             )
-            return 604800  # one week
-
-        time_delta = current_datetime - stamp_datetime
-        total_seconds = 0
-        if time_delta:
-            total_seconds = ((time_delta.seconds + time_delta.days * 24 * 3600) * 10 ** 6) // (10 ** 6)
-        return total_seconds

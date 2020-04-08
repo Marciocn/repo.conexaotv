@@ -1,13 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
+__author__ = 'bromix'
 
-    Copyright (C) 2014-2016 bromix (plugin.video.youtube)
-    Copyright (C) 2016-2018 plugin.video.youtube
-
-    SPDX-License-Identifier: GPL-2.0-only
-    See LICENSES/GPL-2.0-only for more information.
-"""
-
+import xbmc
 import xbmcgui
 import xbmcplugin
 
@@ -22,30 +15,25 @@ from . import xbmc_items
 class XbmcRunner(AbstractProviderRunner):
     def __init__(self):
         AbstractProviderRunner.__init__(self)
-        self.handle = None
-        self.settings = None
+        pass
 
     def run(self, provider, context=None):
-
-        self.handle = context.get_handle()
-
+        results = None
         try:
             results = provider.navigate(context)
-        except KodionException as ex:
+        except KodionException, ex:
             if provider.handle_exception(context, ex):
                 context.log_error(ex.__str__())
                 xbmcgui.Dialog().ok("Exception in ContentProvider", ex.__str__())
-            xbmcplugin.endOfDirectory(self.handle, succeeded=False)
+                pass
             return
-
-        self.settings = context.get_settings()
 
         result = results[0]
         options = {}
         options.update(results[1])
 
         if isinstance(result, bool) and not result:
-            xbmcplugin.endOfDirectory(self.handle, succeeded=False)
+            xbmcplugin.endOfDirectory(context.get_handle(), succeeded=False)
         elif isinstance(result, VideoItem) or isinstance(result, AudioItem) or isinstance(result, UriItem):
             self._set_resolved_url(context, result)
         elif isinstance(result, DirectoryItem):
@@ -61,18 +49,20 @@ class XbmcRunner(AbstractProviderRunner):
                     self._add_audio(context, item, item_count)
                 elif isinstance(item, ImageItem):
                     self._add_image(context, item, item_count)
+                pass
 
             xbmcplugin.endOfDirectory(
-                self.handle, succeeded=True,
+                context.get_handle(), succeeded=True,
                 cacheToDisc=options.get(AbstractProvider.RESULT_CACHE_TO_DISC, True))
         else:
             # handle exception
             pass
+        pass
 
     def _set_resolved_url(self, context, base_item, succeeded=True):
-        item = xbmc_items.to_playback_item(context, base_item)
+        item = xbmc_items.to_item(context, base_item)
         item.setPath(base_item.get_uri())
-        xbmcplugin.setResolvedUrl(self.handle, succeeded=succeeded, listitem=item)
+        xbmcplugin.setResolvedUrl(context.get_handle(), succeeded=succeeded, listitem=item)
 
         """
         # just to be sure :)
@@ -87,90 +77,67 @@ class XbmcRunner(AbstractProviderRunner):
         """
 
     def _add_directory(self, context, directory_item, item_count=0):
-        major_version = context.get_system_version().get_version()[0]
-
-        art = {'icon': 'DefaultFolder.png',
-               'thumb': directory_item.get_image()}
-
-        if major_version > 17:
-            item = xbmcgui.ListItem(label=directory_item.get_name(), offscreen=True)
-        else:
-            item = xbmcgui.ListItem(label=directory_item.get_name())
+        item = xbmcgui.ListItem(label=directory_item.get_name(),
+                                iconImage=u'DefaultFolder.png',
+                                thumbnailImage=directory_item.get_image())
 
         # only set fanart is enabled
-        if directory_item.get_fanart() and self.settings.show_fanart():
-            art['fanart'] = directory_item.get_fanart()
-
-        if major_version <= 15:
-            item.setArt(art)
-            item.setIconImage(art['icon'])
-        else:
-            item.setArt(art)
-
+        settings = context.get_settings()
+        if directory_item.get_fanart() and settings.show_fanart():
+            item.setProperty(u'fanart_image', directory_item.get_fanart())
+            pass
         if directory_item.get_context_menu() is not None:
             item.addContextMenuItems(directory_item.get_context_menu(),
                                      replaceItems=directory_item.replace_context_menu())
+            pass
 
-        item.setInfo(type='video', infoLabels=info_labels.create_from_item(directory_item))
-        item.setPath(directory_item.get_uri())
+        item.setInfo(type=u'video', infoLabels=info_labels.create_from_item(context, directory_item))
 
-        is_folder = True
-        if directory_item.is_action():
-            is_folder = False
-            item.setProperty('isPlayable', 'false')
-
-        if directory_item.get_channel_subscription_id():  # make channel_subscription_id property available for keymapping
-            item.setProperty('channel_subscription_id', directory_item.get_channel_subscription_id())
-
-        xbmcplugin.addDirectoryItem(handle=self.handle,
+        xbmcplugin.addDirectoryItem(handle=context.get_handle(),
                                     url=directory_item.get_uri(),
                                     listitem=item,
-                                    isFolder=is_folder,
+                                    isFolder=True,
                                     totalItems=item_count)
+        pass
 
     def _add_video(self, context, video_item, item_count=0):
         item = xbmc_items.to_video_item(context, video_item)
-        item.setPath(video_item.get_uri())
-        xbmcplugin.addDirectoryItem(handle=self.handle,
+
+        xbmcplugin.addDirectoryItem(handle=context.get_handle(),
                                     url=video_item.get_uri(),
                                     listitem=item,
                                     totalItems=item_count)
+        pass
 
     def _add_image(self, context, image_item, item_count):
-        major_version = context.get_system_version().get_version()[0]
+        item = xbmcgui.ListItem(label=image_item.get_name(),
+                                iconImage=u'DefaultPicture.png',
+                                thumbnailImage=image_item.get_image())
 
-        art = {'icon': 'DefaultPicture.png',
-               'thumb': image_item.get_image()}
-
-        if major_version > 17:
-            item = xbmcgui.ListItem(label=image_item.get_name(), offscreen=True)
-        else:
-            item = xbmcgui.ListItem(label=image_item.get_name())
-
-        if image_item.get_fanart() and self.settings.show_fanart():
-            art['fanart'] = image_item.get_fanart()
-
-        if major_version <= 15:
-            item.setArt(art)
-            item.setIconImage(art['icon'])
-        else:
-            item.setArt(art)
-
+        # only set fanart is enabled
+        settings = context.get_settings()
+        if image_item.get_fanart() and settings.show_fanart():
+            item.setProperty(u'fanart_image', image_item.get_fanart())
+            pass
         if image_item.get_context_menu() is not None:
             item.addContextMenuItems(image_item.get_context_menu(), replaceItems=image_item.replace_context_menu())
+            pass
 
-        item.setInfo(type='picture', infoLabels=info_labels.create_from_item(image_item))
+        item.setInfo(type=u'picture', infoLabels=info_labels.create_from_item(context, image_item))
 
-        item.setPath(image_item.get_uri())
-        xbmcplugin.addDirectoryItem(handle=self.handle,
+        xbmcplugin.addDirectoryItem(handle=context.get_handle(),
                                     url=image_item.get_uri(),
                                     listitem=item,
                                     totalItems=item_count)
+        pass
 
     def _add_audio(self, context, audio_item, item_count):
         item = xbmc_items.to_audio_item(context, audio_item)
-        item.setPath(audio_item.get_uri())
-        xbmcplugin.addDirectoryItem(handle=self.handle,
+
+        xbmcplugin.addDirectoryItem(handle=context.get_handle(),
                                     url=audio_item.get_uri(),
                                     listitem=item,
                                     totalItems=item_count)
+        pass
+
+    pass

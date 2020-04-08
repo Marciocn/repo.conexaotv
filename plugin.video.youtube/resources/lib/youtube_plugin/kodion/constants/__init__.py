@@ -1,18 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
+__all__ = ['setting', 'log', 'localize', 'sort_method', 'content_type', 'paths']
 
-    Copyright (C) 2014-2016 bromix (plugin.video.youtube)
-    Copyright (C) 2016-2018 plugin.video.youtube
-
-    SPDX-License-Identifier: GPL-2.0-only
-    See LICENSES/GPL-2.0-only for more information.
-"""
-
-from . import const_settings as setting
-from . import const_localize as localize
-from . import const_sort_methods as sort_method
-from . import const_content_types as content_type
-from . import const_paths as paths
-
-
-__all__ = ['setting', 'localize', 'sort_method', 'content_type', 'paths']
+import const_settings as setting
+import const_log as log
+import const_localize as localize
+import const_sort_methods as sort_method
+import const_content_types as content_type
+import const_paths as paths

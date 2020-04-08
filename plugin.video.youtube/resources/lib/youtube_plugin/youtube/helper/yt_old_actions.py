@@ -1,12 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-
-    Copyright (C) 2014-2016 bromix (plugin.video.youtube)
-    Copyright (C) 2016-2018 plugin.video.youtube
-
-    SPDX-License-Identifier: GPL-2.0-only
-    See LICENSES/GPL-2.0-only for more information.
-"""
+__author__ = 'bromix'
 
 from ... import kodion
 
@@ -41,8 +33,10 @@ def _process_play_all(provider, context, re_match):
     if video_id:
         context.log_warning(
             'USE INSTEAD "plugin://%s/play/?playlist_id=%s&video_id=%s"' % (context.get_id(), playlist_id, video_id))
+        pass
     else:
         context.log_warning('USE INSTEAD "plugin://%s/play/?playlist_id=%s"' % (context.get_id(), playlist_id))
+        pass
     new_params = {'playlist_id': playlist_id}
     new_path = '/play/'
     new_context = context.clone(new_path=new_path, new_params=new_params)
@@ -54,6 +48,7 @@ def process_old_action(provider, context, re_match):
     if context.get_system_version().get_version() >= (15, 0):
         message = u"You're using old YouTube-Plugin calls - please review the log for updated end points starting with Isengard"
         context.get_ui().show_notification(message, time_milliseconds=15000)
+        pass
     """
 
     action = context.get_param('action', '')
@@ -63,3 +58,4 @@ def process_old_action(provider, context, re_match):
         return _process_play_all(provider, context, re_match)
     else:
         raise kodion.KodionException('old_actions: unknown action "%s"' % action)
+    pass

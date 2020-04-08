@@ -1,22 +1,12 @@
-# -*- coding: utf-8 -*-
-"""
-
-    Copyright (C) 2014-2016 bromix (plugin.video.youtube)
-    Copyright (C) 2016-2018 plugin.video.youtube
-
-    SPDX-License-Identifier: GPL-2.0-only
-    See LICENSES/GPL-2.0-only for more information.
-"""
-
-import sys
+__author__ = 'bromix'
 
 from .. import constants
-from ..logger import log_debug
 
 
 class AbstractSettings(object):
     def __init__(self):
         object.__init__(self)
+        pass
 
     def get_string(self, setting_id, default_value=None):
         raise NotImplementedError()
@@ -29,8 +19,8 @@ class AbstractSettings(object):
 
     def get_int(self, setting_id, default_value, converter=None):
         if not converter:
-            def converter(x):
-                return x
+            converter = lambda x: x
+            pass
 
         value = self.get_string(setting_id)
         if value is None or value == '':
@@ -38,13 +28,17 @@ class AbstractSettings(object):
 
         try:
             return converter(int(value))
-        except Exception as ex:
-            log_debug("Failed to get setting '%s' as 'int' (%s)" % setting_id, ex.__str__())
+        except Exception, ex:
+            from . import log
+
+            log("Failed to get setting '%s' as 'int' (%s)" % setting_id, ex.__str__())
+            pass
 
         return default_value
 
     def set_int(self, setting_id, value):
         self.set_string(setting_id, str(value))
+        pass
 
     def set_bool(self, setting_id, value):
         if value:
@@ -70,10 +64,13 @@ class AbstractSettings(object):
                    1: 360,
                    2: 480,  # 576 seems not to work well
                    3: 720,
-                   4: 1080}
+                   4: 1080,
+                   5: 2160,
+                   6: 4320}
 
         if quality_map_override is not None:
             vq_dict = quality_map_override
+            pass
 
         vq = self.get_int(constants.setting.VIDEO_QUALITY, 1)
         return vq_dict[vq]
@@ -93,26 +90,20 @@ class AbstractSettings(object):
     def is_support_alternative_player_enabled(self):
         return self.get_bool(constants.setting.SUPPORT_ALTERNATIVE_PLAYER, False)
 
-    def alternative_player_web_urls(self):
-        return self.get_bool(constants.setting.ALTERNATIVE_PLAYER_WEB_URLS, False)
-
     def use_dash(self):
         return self.get_bool(constants.setting.USE_DASH, False)
 
+    def dash_support_builtin(self):
+        return self.get_bool(constants.setting.DASH_SUPPORT_BUILTIN, False)
+
+    def dash_support_addon(self):
+        return self.get_bool(constants.setting.DASH_SUPPORT_ADDON, False)
+
     def subtitle_languages(self):
-        return self.get_int(constants.setting.SUBTITLE_LANGUAGE, 0)
+        return self.get_int(constants.setting.SUBTITLE_LANGUAGES, 0)
 
-    def subtitle_download(self):
-        return self.get_bool(constants.setting.SUBTITLE_DOWNLOAD, False)
-
-    def audio_only(self):
-        return self.get_bool(constants.setting.AUDIO_ONLY, False)
-
-    def set_subtitle_languages(self, value):
-        return self.set_int(constants.setting.SUBTITLE_LANGUAGE, value)
-
-    def set_subtitle_download(self, value):
-        return self.set_bool(constants.setting.SUBTITLE_DOWNLOAD, value)
+    def requires_dual_login(self):
+        return self.get_bool('youtube.folder.my_subscriptions.show', True)
 
     def use_thumbnail_size(self):
         size = self.get_int(constants.setting.THUMB_SIZE, 0)
@@ -123,119 +114,3 @@ class AbstractSettings(object):
         index = self.get_int(constants.setting.SAFE_SEARCH, 0)
         values = {0: 'moderate', 1: 'none', 2: 'strict'}
         return values[index]
-
-    def age_gate(self):
-        return self.get_bool(constants.setting.AGE_GATE, True)
-
-    def verify_ssl(self):
-        verify = self.get_bool(constants.setting.VERIFY_SSL, False)
-        if sys.version_info <= (2, 7, 9):
-            verify = False
-        return verify
-
-    def allow_dev_keys(self):
-        return self.get_bool(constants.setting.ALLOW_DEV_KEYS, False)
-
-    def use_dash_videos(self):
-        if not self.use_dash():
-            return False
-        return self.get_bool(constants.setting.DASH_VIDEOS, False)
-
-    def include_hdr(self):
-        if self.get_mpd_quality() == 'mp4':
-            return False
-        return self.get_bool(constants.setting.DASH_INCL_HDR, False)
-
-    def use_dash_live_streams(self):
-        if not self.use_dash():
-            return False
-        return self.get_bool(constants.setting.DASH_LIVE_STREAMS, False)
-
-    def httpd_port(self):
-        return self.get_int(constants.setting.HTTPD_PORT, 50152)
-
-    def httpd_listen(self):
-        return self.get_string(constants.setting.HTTPD_LISTEN, '0.0.0.0')
-
-    def set_httpd_listen(self, value):
-        return self.set_string(constants.setting.HTTPD_LISTEN, value)
-
-    def httpd_whitelist(self):
-        return self.get_string(constants.setting.HTTPD_WHITELIST, '')
-
-    def api_config_page(self):
-        return self.get_bool(constants.setting.API_CONFIG_PAGE, False)
-
-    def get_location(self):
-        location = self.get_string(constants.setting.LOCATION, '').replace(' ', '').strip()
-        coords = location.split(',')
-        latitude = longitude = None
-        if len(coords) == 2:
-            try:
-                latitude = float(coords[0])
-                longitude = float(coords[1])
-                if latitude > 90.0 or latitude < -90.0:
-                    latitude = None
-                if longitude > 180.0 or longitude < -180.0:
-                    longitude = None
-            except ValueError:
-                latitude = longitude = None
-        if latitude and longitude:
-            return '{lat},{long}'.format(lat=latitude, long=longitude)
-        else:
-            return ''
-
-    def set_location(self, value):
-        self.set_string(constants.setting.LOCATION, value)
-
-    def get_location_radius(self):
-        return ''.join([str(self.get_int(constants.setting.LOCATION_RADIUS, 500)), 'km'])
-
-    def get_play_count_min_percent(self):
-        return self.get_int(constants.setting.PLAY_COUNT_MIN_PERCENT, 0)
-
-    def use_playback_history(self):
-        return self.get_bool(constants.setting.USE_PLAYBACK_HISTORY, False)
-
-    @staticmethod
-    def __get_mpd_quality_map():
-        return {
-            0: 240,
-            1: 360,
-            2: 480,
-            3: 720,
-            4: 1080,
-            5: 1440,
-            6: 2160,
-            7: 4320,
-            8: 'mp4',
-            9: 'webm'
-        }
-
-    def get_mpd_quality(self):
-        quality_map = self.__get_mpd_quality_map()
-        quality_enum = self.get_int(constants.setting.MPD_QUALITY_SELECTION, 8)
-        return quality_map.get(quality_enum, 'mp4')
-
-    def mpd_video_qualities(self):
-        if not self.use_dash_videos():
-            return []
-
-        quality = self.get_mpd_quality()
-
-        if not isinstance(quality, int):
-            return quality
-
-        quality_map = self.__get_mpd_quality_map()
-        qualities = sorted([x for x in list(quality_map.values())
-                            if isinstance(x, int) and x <= quality], reverse=True)
-
-        return qualities
-
-    def mpd_30fps_limit(self):
-        if self.include_hdr() or isinstance(self.get_mpd_quality(), str):
-            return False
-        return self.get_bool(constants.setting.MPD_30FPS_LIMIT, False)
-
-    def remote_friendly_search(self):
-        return self.get_bool(constants.setting.REMOTE_FRIENDLY_SEARCH, False)
