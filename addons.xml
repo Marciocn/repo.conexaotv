@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <addon id="plugin.video.conexao"
-       name="[B][COLOR beige]Cone[COLOR lime][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR blue]-[COLOR lime]Multi[COLOR blue]-[COLOR green]Addons[/COLOR][/B]"
-       version="3.0.4"
-       provider-name="[B][COLOR lime]Equipe:[/B] [B][COLOR beige]Cone[COLOR lime][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR blue]-[COLOR lime]Multi[COLOR blue]-[COLOR green]Addons[/COLOR][/B]">
- <requires>
+       name="[B][COLOR beige]Cone[COLOR lime][B]x[/B][COLOR  beige][B]ão[/COLOR][COLOR blue]-[COLOR lime]Multi[COLOR blue]-[COLOR green]Addons[/COLOR][/B]"
+       version="3.0.5"
+       provider-name="[B][COLOR lime]Equipe:[/B] [B][COLOR beige]Cone[COLOR lime][B]x[/B][COLOR  beige][B]ão[/COLOR][COLOR blue]-[COLOR lime]Multi[COLOR blue]-[COLOR green]Addons[/COLOR][/B]">
+   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="xbmc.python" version="2.24.0"/>
-    <import addon="script.module.t0mm0.common"/>
-    <import addon="script.module.beautifulsoup"/>
-    <import addon="script.module.beautifulsoup4"/>
-    <import addon="script.module.simple.downloader"/>
-    <import addon="script.module.requests"/>
-    <import addon="script.module.httplib2"/>
-    <import addon="script.module.urlresolver"/>
-    <import addon="script.module.simplejson"/>
-    <import addon="script.common.plugin.cache"/>
-    <import addon="script.module.metahandler"/>
+    <import addon="script.module.beautifulsoup" version="3.2.1"/>
+    <import addon="script.module.simple.downloader" version="0.9.4"/>
+    <import addon="script.module.beautifulsoup4" />
+    <import addon="script.module.requests" />
+    <import addon="script.module.httplib2" />
+    <import addon="script.module.liveresolver" version="0.1.24" optional="true"/>
+    <import addon="script.module.youtube.dl" optional="true"/>
+    <import addon="plugin.video.youtube" optional="true" />
+	<import addon="plugin.video.SportsDevil" optional="true" />
+    <import addon="script.module.urlresolver" optional="true"/>
+    <import addon="script.module.simplejson" />
+     <import addon="script.module.livestreamer" optional="true"/>
+     <import addon="script.module.pyamf" optional="true"/>
 
  </requires>
-  <extension point="xbmc.python.pluginsource" library="youtube.py">
+  <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.repository" name="Vikings Repository">
@@ -28,10 +30,10 @@
 		<datadir zip="true">http://raw.githubusercontent.com/Marciocn/repo.conexaoTV/master/ZipFiles/</datadir>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">[B][COLOR beige]Cone[COLOR red][B]x[/B][COLOR  beige][B]Ã£o[/COLOR][COLOR blue]-[COLOR aquamarine]Multi[COLOR blue]-[COLOR aqua]Addons[/COLOR][/B][COLOR aqua][B]  Feito Pra VocÃª[/B][/COLOR]</summary>
-    <disclaimer lang="en">O autor nÃ£o Ã© responsÃ¡vel pelo uso deste addon. O autor nÃ£o Ã© responsÃ¡vel pelo conteÃºdo encontrado usando este addon. O autor nÃ£o hospeda ou possui qualquer conteÃºdo encontrado dentro deste addon. O autor nÃ£o Ã© de forma alguma afiliado com Kodi, Team Kodi, ou a FundaÃ§Ã£o XBMC. Este Ã© um recurso sem fins lucrativos, organizado exclusivamente para fins educacionais. fins protegidos pela doutrina de uso justo da Lei de Direitos Autorais, especificamente a seÃ§Ã£o 107, que promove a liberdade de expressÃ£o, ao permitir o uso nÃ£o licenciado de obras protegidas por direitos autorais.</disclaimer>
+    <summary lang="en">[B][COLOR beige]Cone[COLOR red][B]x[/B][COLOR  beige][B]ão[/COLOR][COLOR blue]-[COLOR aquamarine]Multi[COLOR blue]-[COLOR aqua]Addons[/COLOR][/B][COLOR aqua][B]  Feito Pra Você[/B][/COLOR]</summary>
+    <disclaimer lang="en">O autor não é responsável pelo uso deste addon. O autor não é responsável pelo conteúdo encontrado usando este addon. O autor não hospeda ou possui qualquer conteúdo encontrado dentro deste addon. O autor não é de forma alguma afiliado com Kodi, Team Kodi, ou a Fundação XBMC. Este é um recurso sem fins lucrativos, organizado exclusivamente para fins educacionais. fins protegidos pela doutrina de uso justo da Lei de Direitos Autorais, especificamente a seção 107, que promove a liberdade de expressão, ao permitir o uso não licenciado de obras protegidas por direitos autorais.</disclaimer>
 	<description lang="en">[COLOR lime]*TV*[COLOR red]*FILMES*[/COLOR][COLOR firebrick]*SERIES*[COLOR blue]*DESENHOS*[COLOR orange]*ANIMES*[COLOR cyan]*LANCAMENTOS*[COLOR lime]*HD*[COLOR yellow]*FHD*[/COLOR]</description>
-	<news>[COLOR lime] AtualizaÃ§Ã£o[COLOR red] v3.0.3:[/COLOR]
+	<news>[COLOR lime] Atualização[COLOR red] v3.0.3:[/COLOR]
           [COLOR god][B]Melhorias de estabilidade[/B][/COLOR]
 </news>
     <platform>all</platform>
@@ -43,6 +45,44 @@
 <screenshot>resources/screenshots/3.jpeg</screenshot>
   </assets>
   </extension>
+</addon>
+
+<addon id="plugin.video.elementum" name="Elementum" version="0.1.35" provider-name="elgatito">
+    <requires>
+        <import addon="xbmc.addon" version="16.0.0" />
+        <import addon="xbmc.python" version="2.24.0" />
+        <import addon="repository.elementum" optional="true" />
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="navigation.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.service" library="service.py" start="startup" />
+    <extension point="xbmc.python.module" library="resources/site-packages" />
+    <extension point="xbmc.subtitle.module" library="navigation.py" />
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Elementum: Media streaming</summary>
+        <summary lang="hr">Elementum: Medijsko strujanje</summary>
+         <summary lang="es">Elementum: Transmisión de medios</summary>
+        <description lang="en">Elementum is a torrent finding and streaming engine. It doesn't go on torrent websites for legal reasons. However, it calls specially crafted add-ons (called providers) that are installed separately.[CR]This project is a fork of the well known, but no longer maintained Pulsar/Quasar projects from steeve and scakemyer.</description>
+        <description lang="hr">Elementum je pogon pretraživanja i strujanja. Ne posjećuje torrent web stranice iz pravnih razloga. Ipak, koristi posebno napravljene dodatke (nazvane pružatelji usluge) koji su instalirani odvojeno.[CR]Ovaj projekt je ogranak dobro poznatih, ali više ne održavanih Pulsar/Quasar projekata od autora steevea i scakemyera.</description>
+        <description lang="es">Elementum es un motor de búsqueda y transmisión torrent. No navega por sitios web torrent por razones legales. Sin embargo, llama a complementos especialmente diseñados para ello (denominados providers o proveedores) que se instalan por separado.[CR]Este proyecto es un fork de los bien conocidos, pero ya sin soporte proyectos Pulsar/Quasar de steeve y scakemyer.[CR]</description>
+        <disclaimer lang="en">The author does not own or host any content found within this Addon. The author is not connected to or in any other way affiliated with Kodi, Team Kodi, or the XBMC Foundation.</disclaimer>
+        <disclaimer lang="hr">Autor ovog dodatka ne posjeduje i ne distribuira bilo kakav sadržaj koji je pronađen. Autor nije povezan sa ili na bilo koji drugi način bilo sa Kodijem, Team Kodijem ili XBMC fundacijom.</disclaimer>
+        <disclaimer lang="es">El autor no posee ni aloja ningún contenido que se encuentre a través de este complemento. El autor no está unido ni relacionado de ninguna manera con Kodi, Team Kodi, o XBMC Foundation.</disclaimer>
+        <language>en el es de fi fr he hr it nl pt ro sk</language>
+        <platform>all</platform>
+        <website>http://elementum.surge.sh/</website>
+        <source>https://github.com/elgatito/plugin.video.elementum</source>
+        <forum></forum>
+        <license>Non commercial. See https://github.com/elgatito/plugin.video.elementum/blob/master/LICENSE</license>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.png</fanart>
+            <screenshot>resources/screenshots/home.png</screenshot>
+            <screenshot>resources/screenshots/movies.png</screenshot>
+            <screenshot>resources/screenshots/webui.png</screenshot>
+        </assets>
+    </extension>
 </addon>
 
 <addon id="plugin.video.f4mTester" version="2.7.9" name="f4mTester" provider-name="Shani">
@@ -97,41 +137,41 @@
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Guia de programaÃ§Ã£o para o Kodi.</summary>
-    <description lang="en">Este addon usa as informaÃ§Ãµes fornecidas pelo site [COLOR yellow]meuguia.tv[/COLOR]. Todos os direitos e dados sÃ£o de propriedade do mesmo.
+    <summary lang="en">Guia de programação para o Kodi.</summary>
+    <description lang="en">Este addon usa as informações fornecidas pelo site [COLOR yellow]meuguia.tv[/COLOR]. Todos os direitos e dados são de propriedade do mesmo.
 
-[COLOR lightblue]Note que estamos em constante desenvolvimento, portanto podem haver pequenos bugs e funÃ§Ãµes que serÃ£o corrigidas gradualmente.[/COLOR]</description>
+[COLOR lightblue]Note que estamos em constante desenvolvimento, portanto podem haver pequenos bugs e funções que serão corrigidas gradualmente.[/COLOR]</description>
     <email>contato@gabrielsilva.tk</email>
     <website>http://gabrielsilva.tk</website>
     <news>[B]v1.2.1 [COLOR gray](21/01/2019)[/COLOR][/B]
-      - MudanÃ§as no servidor.
+      - Mudanças no servidor.
       - Bugs corrigidos.
 
 [B]v1.2.0 [COLOR gray](05/01/2019)[/COLOR][/B]
-      - CorreÃ§Ãµes de seguranÃ§a.
+      - Correções de segurança.
 
 [B]v1.1.0b [COLOR gray](16/11/2018)[/COLOR][/B]
-      - AtualizaÃ§Ã£o automÃ¡tica aprimorada.
-      - CorreÃ§Ã£o de bugs.
+      - Atualização automática aprimorada.
+      - Correção de bugs.
 
 [B]v1.1.0 [COLOR gray](12/11/2018)[/COLOR][/B]
-      - CorreÃ§Ãµes de seguranÃ§a.
+      - Correções de segurança.
 
 [B]v1.0.0 [COLOR gray](27/06/2018)[/COLOR][/B]
       - Addon estabilizado.
-      - Adicionada atualizaÃ§Ã£o automÃ¡tica.
-      - Adicionada exibiÃ§Ã£o de sinopse e poster.
-      - CorreÃ§Ã£o de bugs.
+      - Adicionada atualização automática.
+      - Adicionada exibição de sinopse e poster.
+      - Correção de bugs.
 
 [B]v0.0.2 [COLOR gray](09/06/2018)[/COLOR][/B]
       - Adicionada ferramenta de busca por elenco.
-      - CorreÃ§Ã£o de bugs.
+      - Correção de bugs.
 
 [B]v0.0.1 [COLOR gray](08/06/2018)[/COLOR][/B]
-      - VersÃ£o inicial do addon (alpha).
+      - Versão inicial do addon (alpha).
 
-[COLOR yellow]As atualizaÃ§Ãµes sÃ£o baixadas automaticamente![/COLOR]
-[COLOR lightblue]Outras modificaÃ§Ãµes sÃ£o realizadas diretamente no servidor.[/COLOR]
+[COLOR yellow]As atualizações são baixadas automaticamente![/COLOR]
+[COLOR lightblue]Outras modificações são realizadas diretamente no servidor.[/COLOR]
     </news>
     <assets>
         <icon>icon.png</icon>
@@ -144,7 +184,7 @@
 </addon>
 
 <addon id="repo.conexaoTV"
- name="[B][COLOR white]Repositorio Cone[B][COLOR violet]x[B][COLOR  white]Ã£o[/COLOR][/B] [B][COLOR violet]Tv[/COLOR][/B]"
+ name="[B][COLOR white]Repositorio Cone[B][COLOR violet]x[B][COLOR  white]ão[/COLOR][/B] [B][COLOR violet]Tv[/COLOR][/B]"
 version="1.0.2" provider-name="Marciocn">">
 
 	<requires>
@@ -167,46 +207,6 @@ version="1.0.2" provider-name="Marciocn">">
 	</extension>
 </addon>
 
-<addon id="repo.vikings" name="[B][COLOR yellow].Vikings  [COLOR orange]Repo[/B][/COLOR]" version="1.02" provider-name="Vikings Builds by @	Pio">">
-	<requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.beautifulsoup" version="3.2.1"/>
-    <import addon="script.module.simple.downloader" version="0.9.4"/>
-    <import addon="script.module.t0mm0.common" version="2.0.0"/>
-    <import addon="script.module.beautifulsoup4" />
-    <import addon="script.module.requests" />
-    <import addon="script.module.httplib2" />
-    <import addon="script.module.simple.downloader" version="0.9.4"/>
-    <import addon="plugin.video.youtube" version="5.2.1" />
-    <import addon="script.module.urlresolver" />
-    <import addon="script.module.simplejson" />
-    <import addon="script.module.livestreamer"/>
-    <import addon="script.module.pyamf"/>
-    <import addon="script.common.plugin.cache" version="2.5.2"/>
-    <import addon="script.module.metahandler" version="2.5.1"/>
-	<import addon="script.module.addon.common" />
-	<import addon="script.module.addon.signals" version="0.0.1"/>
-	<import addon="script.module.youtube.dl"/>
-
-  </requires>
-  <extension point="xbmc.addon.repository" name="Vikings Repository">
-		<info compressed="false">http://raw.github.com/vikingsbuild/repo.vikings/master/addons.xml</info>
-		<checksum>http://raw.github.com/vikingsbuild/repo.vikings/master/addons.xml.md5</checksum>
-		<datadir zip="true">http://raw.github.com/vikingsbuild/repo.vikings/master/addons/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Repositorio Vikings</summary>
-		<description>Repositorio oficial Vikings Build - Proibido reproducao sem previa autorizacao</description>
-		<news>
-	Somente Addons TOP, nÃ£o incluimos "PINDURICALHOS"... somente ADDONS atualizados constantemente!
-	Os addons que serÃ¡ instalado nÃ£o hospeda nem possui nenhum conteÃºdo. O autor nÃ£o Ã© responsÃ¡vel pelo uso e pelo conteÃºdo encontrado usando este addon
-</news>
-
-		<disclaimer></disclaimer>
-		<platform>all</platform>
-	</extension>
-</addon>
-
 <addon id="script.video.F4mProxy" name="F4mProxy" version="2.7.9" provider-name="Shani">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
@@ -221,6 +221,45 @@ version="1.0.2" provider-name="Marciocn">">
         <summary lang="en">Proxy for f4m</summary>
         <description lang="en">Use this addon to play F4m v1 and v2 streams</description>
     </extension>
+</addon>
+
+<addon 	id="vikings.repo" name="[B][COLOR yellow]  Vikings  [COLOR orange]Repositorio Vikings Oficial, SEM BANIMENTO!![/B][/COLOR]"
+		version="1.54"
+		provider-name="[B][COLOR gold]Vikings TEAM[/B][/COLOR]">
+
+	<requires>
+            <import addon="xbmc.python" version="2.1.0"/>
+		    <import addon="script.module.addon.common" optional="true" />
+		    <import addon="script.module.t0mm0.common" optional="true" />
+		    <import addon="script.module.urlresolver" optional="true" />
+    </requires>
+
+	<extension point="xbmc.addon.repository" name=".Vikings Repositorio">
+		<info compressed="true">https://github.com/vikingsbuild/vikings.repo/raw/master/addons.xml</info>
+			<checksum>https://github.com/vikingsbuild/vikings.repo/raw/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://github.com/vikingsbuild/vikings.repo/raw/master</datadir>
+	</extension>
+
+	<extension point="xbmc.addon.metadata">
+	<news>
+	[COLOR orange]LOG DE CORREÇÔES[/COLOR]
+	[COLOR red]*[/COLOR] V 1.53 - ajustes de dependencias...
+	[COLOR orange]*[/COLOR] V 1.15.1 - Excluido a instalação do plugin Youtube que provocava erros em algumas box...
+	[COLOR gold]*[/COLOR]   V 1.17.1 - Corrigido dependências que provocava erros quando instalado o repositório em Kodi Padrão.
+	</news>
+
+	<summary>Repositorio Vikings levando os melhores addons a sua familia e aos quatro cantos do Mundo!!!</summary>
+
+	<description>
+                    [B][COLOR orange]Repositório Vikings, SEM BANIMENTO! SEM SCRIPT MALICIOSO!! PURO, LIMPO E SIMPLES!!![/COLOR][/B]
+					[B][COLOR red]Repositório oficial Vikings Build - Proibido reprodução total ou parcial sem prévia autorização[/COLOR][/B]
+					[B][COLOR white]Addons deste repositório é de uso gratuito!![/COLOR][/B]
+					[B][COLOR firebrick]Proibido a venda dos add-ons contidos neste repositório[/COLOR][/B]
+	</description>
+
+<disclaimer>[B][COLOR orange]Repositório Vikings é apenas um AGREGADOR de ADDONS e, assim como o Google.com, apenas agrega e organiza ADDONS DE TERCEIROS. Não somos responsáveis pelos arquivos aqui encontrados.[/COLOR][/B]</disclaimer>
+		<platform>all</platform>
+	</extension>
 </addon>
 
 <addon id="xbmc.python" version="2.25.0" provider-name="Team Kodi">
